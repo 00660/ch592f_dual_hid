@@ -1,0 +1,43 @@
+{
+  "board": "592f0301",
+  "version": "1.0.5",
+  "sdk_commit": "a46e0086f1ffb5e5502703970bff94888e67f4cb",
+  "compiler": "riscv-none-embed-gcc.exe (xPack GNU RISC-V Embedded GCC, 32-bit) 8.2.0",
+  "app_address": 4096,
+  "app_bytes": 156832,
+  "app_capacity": 221184,
+  "iap_bytes": 7108,
+  "jump_bytes": 1688,
+  "app_crc32": "304d4e1e",
+  "hardware_validated": false,
+  "hid_profile": "ios",
+  "hid_input_reports": [
+    1,
+    2
+  ],
+  "startup": {
+    "app": "EVT\\EXAM\\BLE\\BackupUpgrade_OTA\\Startup\\startup_CH592.S",
+    "iap": "EVT\\EXAM\\BLE\\BackupUpgrade_IAP\\Startup\\startup_CH592.S",
+    "jump": "EVT\\EXAM\\BLE\\BackupUpgrade_IAP\\Startup\\startup_CH592.S"
+  },
+  "diagnostics": {
+    "uart": 1,
+    "rx": "PA8",
+    "tx": "PA9",
+    "baud": 115200,
+    "format": "8N1",
+    "heartbeat_ms": 5000,
+    "mute_on_uart_frame": true
+  },
+  "sha256": {
+    "app.bin": "461ca6e480266f9605fc263ccf6a790c11e5402fa4c8579d1cd06dd175374df1",
+    "app.hex": "3b1a472ec94978d03e820eb8db75101c8508b81a54fb26e9b9b6fab261dded10",
+    "ch592f_3in1.ota": "e0de158744897c5e2e739298d86cb1f6d3c65e2af719338f85ca23ecf878c269",
+    "ch592f_3in1_factory.bin": "afb74d48875e49bee1484c109e3573efe630eaf71b746786f8c7056bb263f8f0",
+    "ch592f_3in1_factory.hex": "2d7a7d4f0216b87efef823df717c415f345cc60f8a0cb18513895b45ec1b928d",
+    "iap.bin": "b5119dfd288f24f2e11b3f03095b75e3d2b6820f5a36d20830fd186cf755803f",
+    "iap.hex": "ba594d2370d05d644df94c31ce203004e2250b86171dfd550f4e3f88892f1046",
+    "jump.bin": "703b87d64fbd2d43937fbe3ecb88c614bcc85edf4f3ad4c11896133aed4fdcd8",
+    "jump.hex": "4a0bc624306cdcc470d26ac4617bf7f060d61f59d66d7391b14af4fc428b7d76"
+  }
+}

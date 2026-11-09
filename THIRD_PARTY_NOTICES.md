@@ -1,8 +1,11 @@
 # Third-party notices
 
-The absolute pointer report format and positioning/button sequence were adapted
-with reference to xhoantran/iphone-use, commit
-bc0fe36e78ec5a3af095c813574e3a8b7bbea4dd.
+历史绝对指针试验参考了 `xhoantran/iphone-use`，提交
+`bc0fe36e78ec5a3af095c813574e3a8b7bbea4dd`。相关实现已在 1.0.5 删除，
+此处保留此前派生工作的许可声明。
+
+相对鼠标报告和按钮时序另对照了 `onehumanbeing/esp32-iphone-agent` 的
+`legacy/hardware/hid_bridge_ble_c3/ble_hid.h`，未复制该项目源码。
 
 MIT License
 

@@ -1,6 +1,28 @@
-# PA8/PA9 启动诊断与触控验证
+# PA8/PA9 启动诊断与输入验证
 
 UART1，PA8 为 RX，PA9 为 TX，115200 / 8N1 / 无流控。固件显式清除 UART1 引脚重映射，使用这两个默认引脚。日志为 ASCII，以 CRLF 换行。
+
+## 当前冻结版本：iOS 1.0.5
+
+2026-11-10 用户确认 iOS 验收成功，固定分支 `ios/v1.0.5`、标签 `ios-v1.0.5`。Android 实机测试稍后进行；下方 1.0.1 至 1.0.4 的触控记录均为历史排查，不代表当前版本仍使用该方案。
+
+iOS 已删除触摸屏、触控板、绝对指针与触摸转换，只输出键盘 ID 1 和相对鼠标 ID 2。BLE OTA 从 1.0.4 安装本版本后，`build/uart-ios-v105-boot.log` 记录：
+
+```text
+[IAP] pending valid=1 size=156832 crc=304D4E1E
+[IAP] install result=1; active check
+[APP] entry fw=00010005 reset=00 chip=92
+[HID] profile=1 inputs=2 map=140 touch=0
+[APP] alive hid=0001 ctrl=FFFF ready=03 ota=0
+```
+
+电脑重连后读回 `role=2 hid=1 controller=1 ready=03 version=1.0.5 profile=ios capabilities=03`。升级末尾的 Windows 状态读取被设备复位中断；依据 IAP 安装日志和新 APP 的版本读回确认成功，没有因客户端异常重复上传。
+
+投屏观察到指针移动、左键打开 Safari、按住左键向上拖动使网页滚动。`build/uart-ios-v105-buttons.log` 分别记录 `buttons=01 → 00` 和 `buttons=02 → 00`。右键的具体系统动作由 iOS 自定按钮决定，不能把某一按键无 UI 响应直接判为固件故障。用户随后确认 iOS 验收完成并要求冻结版本，已停止继续测试手机。
+
+本轮先尝试 UART OTA，首个协议请求未收到有效回复，随后使用 BLE OTA 完成升级。此前 1.0.3 → 1.0.4 的 UART OTA 已成功；1.0.5 没有再次完成 UART 上传。串口日志、BLE OTA、UART OTA 的实际验证范围详见 `OTA.md` 和冻结目录 `RELEASE.md`。
+
+冻结固件保存于 `releases/ios-v1.0.5/`。现场 Jump/IAP 仍为 1.0.1，APP 为 1.0.5；本次构建的 factory 内 Jump/IAP 为 1.0.5，尚未在现场整体重烧。真实断电恢复、Android 和运行峰值等整机项目仍未全部验收，因此保留构建 manifest 中的 `hardware_validated: false`。
 
 ## 已修正的启动问题
 
@@ -10,7 +32,7 @@ UART1，PA8 为 RX，PA9 为 TX，115200 / 8N1 / 无流控。固件显式清除 
 
 这是根据原 ELF、官方启动文件和数据手册定位的启动链错误；没有采到实板异常记录，不能认定它是现场唯一原因。注意 `mret` 会改变 MPP，入口日志中的 mstatus 数值不等于启动代码写入值，也不能单独用来推断当前特权级。
 
-## 本次烧录文件
+## 启动修复时的烧录文件
 
 使用 `dist/ch592f_3in1_factory.hex`，或从地址 `0x00000000` 烧录 `dist/ch592f_3in1_factory.bin`。需要完整更新 Jump、IAP 和 APP。仅更新 `app.hex` 或发送 `.ota` 无法修正旧 Jump/IAP。
 

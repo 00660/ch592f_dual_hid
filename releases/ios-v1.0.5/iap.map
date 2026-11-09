@@ -1,0 +1,856 @@
+Archive member included to satisfy reference by file (symbol)
+
+C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o (FLASH_EEPROM_CMD)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o (memcmp)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o (memcpy)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memset.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o (memset)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o (__divdi3)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+                              c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o) (__clz_tab)
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.LClk32K_Cfg
+                0x0000000000000000       0x66 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.HSECFG_Current
+                0x0000000000000000       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.HSECFG_Capacitance
+                0x0000000000000000       0x52 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.LSECFG_Current
+                0x0000000000000000       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.LClk32K_Select
+                0x0000000000000000       0x6a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.LSECFG_Capacitance
+                0x0000000000000000       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_InitTime
+                0x0000000000000000      0x1d0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_GetTime
+                0x0000000000000000      0x15c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_SetCycle32k
+                0x0000000000000000       0x72 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .highcode      0x0000000000000000       0x18 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.Calibration_LSI
+                0x0000000000000000      0x8c4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_TMRFunCfg
+                0x0000000000000000       0x84 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_TRIGFunCfg
+                0x0000000000000000       0x6e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_ModeFunDisable
+                0x0000000000000000       0x5c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_GetITFlag
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text.RTC_ClearITFlag
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_info    0x0000000000000000     0x2249 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_abbrev  0x0000000000000000      0x462 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_loc     0x0000000000000000      0xccc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_aranges
+                0x0000000000000000       0x98 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_ranges  0x0000000000000000      0x1b8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_line    0x0000000000000000     0x2ad9 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_str     0x0000000000000000      0xd0c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .debug_frame   0x0000000000000000      0x1e4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.SYS_GetInfoSta
+                0x0000000000000000       0x24 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.SYS_DisableAllIrq
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.SYS_RecoverIrq
+                0x0000000000000000       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.WWDG_ITCfg
+                0x0000000000000000       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.WWDG_ResetCfg
+                0x0000000000000000       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text.WWDG_ClearFlag
+                0x0000000000000000       0x4a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text._write   0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text._sbrk    0x0000000000000000       0x2e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .sdata.curbrk.3997
+                0x0000000000000000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOB_ModeCfg
+                0x0000000000000000       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .rodata.GPIOB_ModeCfg
+                0x0000000000000000       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOA_ITModeCfg
+                0x0000000000000000       0x82 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOA_ITEdgeTypeCfg
+                0x0000000000000000       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOB_ITModeCfg
+                0x0000000000000000       0x8a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOB_ITEdgeTypeCfg
+                0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOPinRemap
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOAGPPCfg
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOA_PinCfg
+                0x0000000000000000       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text.GPIOB_PinCfg
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .text.UART1_ByteTrigCfg
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .text.UART1_INTCfg
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .text.UART1_RecvString
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .text.UserOptionByteConfig
+                0x0000000000000000       0xdc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .text.UserOptionByteClose_SWD
+                0x0000000000000000       0x7e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .text.UserOptionByte_Active
+                0x0000000000000000       0x88 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .text.GET_UNIQUE_ID
+                0x0000000000000000       0x5a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text.PWR_DCDCCfg
+                0x0000000000000000      0x122 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text.PWR_UnitModCfg
+                0x0000000000000000       0x5e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text.PWR_PeriphClkCfg
+                0x0000000000000000       0x52 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text.PWR_PeriphWakeUpCfg
+                0x0000000000000000      0x122 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text.PowerMonitor
+                0x0000000000000000       0xec C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .highcode      0x0000000000000000      0x538 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_info    0x0000000000000000     0x205f C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_abbrev  0x0000000000000000      0x416 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_loc     0x0000000000000000      0x7b0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_aranges
+                0x0000000000000000       0x60 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_ranges  0x0000000000000000      0x140 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_line    0x0000000000000000     0x1c0d C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_str     0x0000000000000000      0xbdd C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .debug_frame   0x0000000000000000      0x160 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_DataCalib_Rough
+                0x0000000000000000       0x92 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_ExtSingleChSampInit
+                0x0000000000000000       0x3c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_ExtDiffChSampInit
+                0x0000000000000000       0x3c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_InterTSSampInit
+                0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_InterBATSampInit
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.TouchKey_ChSampInit
+                0x0000000000000000       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_ExcutSingleConver
+                0x0000000000000000       0x22 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.TouchKey_ExcutSingleConver
+                0x0000000000000000       0x2e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_AutoConverCycle
+                0x0000000000000000        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.ADC_DMACfg
+                0x0000000000000000       0x4a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text.adc_to_temperature_celsius
+                0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_info    0x0000000000000000      0xfa1 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_abbrev  0x0000000000000000      0x2cf C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_loc     0x0000000000000000      0x25c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_aranges
+                0x0000000000000000       0x70 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_ranges  0x0000000000000000       0x60 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_line    0x0000000000000000      0x928 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_str     0x0000000000000000      0xb06 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .debug_frame   0x0000000000000000       0xc0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MSTATUS
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MSTATUS
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MISA
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MISA
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MTVEC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MTVEC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MSCRATCH
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MSCRATCH
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MEPC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MEPC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MCAUSE
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MCAUSE
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MTVAL
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__set_MTVAL
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MVENDORID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MARCHID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MIMPID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_MHARTID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text.__get_SP
+                0x0000000000000000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_info    0x0000000000000000      0x376 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_abbrev  0x0000000000000000       0xe0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_aranges
+                0x0000000000000000       0xb0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_ranges  0x0000000000000000       0xa0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_line    0x0000000000000000      0x427 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_str     0x0000000000000000      0x294 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .debug_frame   0x0000000000000000      0x140 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memset.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memset.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .text.__divdi3
+                0x0000000000000000      0x3d8 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .eh_frame      0x0000000000000000       0x28 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .rodata.__clz_tab
+                0x0000000000000000      0x100 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x000000000006d000 0x0000000000003000 xr
+RAM              0x0000000020000000 0x0000000000006800 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\10_CH59x_clk.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\15_CH59x_pwr.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\16_CH59x_adc.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\17_core_riscv.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+START GROUP
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libm.a
+END GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+START GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
+END GROUP
+START GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
+END GROUP
+                0x0000000000000600                __stack_size = 0x600
+                [!provide]                        PROVIDE (_stack_size = __stack_size)
+
+.init           0x000000000006d000        0x4
+                0x000000000006d000                _sinit = .
+                0x000000000006d000                . = ALIGN (0x4)
+ *(SORT_NONE(.init))
+ .init          0x000000000006d000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+                0x000000000006d000                _start
+ *(.ImageFlag)
+ *(.ImageFlag.*)
+                0x000000000006d004                . = ALIGN (0x4)
+                0x000000000006d004                _einit = .
+
+.highcodelalign
+                0x000000000006d004        0x0
+                0x000000000006d004                . = ALIGN (0x4)
+                0x000000000006d004                PROVIDE (_highcode_lma = .)
+
+.highcode       0x0000000020000000      0x788 load address 0x000000000006d004
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                PROVIDE (_highcode_vma_start = .)
+ *(.vector)
+ .vector        0x0000000020000000       0x90 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+ *(SORT_NONE(.vector_handler))
+ .vector_handler
+                0x0000000020000090        0x2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+                0x0000000020000090                GPIOB_IRQHandler
+                0x0000000020000090                GPIOA_IRQHandler
+                0x0000000020000090                SysTick_Handler
+                0x0000000020000090                UART1_IRQHandler
+                0x0000000020000090                UART0_IRQHandler
+                0x0000000020000090                BB_IRQHandler
+                0x0000000020000090                Break_Point_Handler
+                0x0000000020000090                TMR0_IRQHandler
+                0x0000000020000090                Ecall_M_Mode_Handler
+                0x0000000020000090                RTC_IRQHandler
+                0x0000000020000090                UART2_IRQHandler
+                0x0000000020000090                PWMX_IRQHandler
+                0x0000000020000090                ADC_IRQHandler
+                0x0000000020000090                TMR2_IRQHandler
+                0x0000000020000090                USB_IRQHandler
+                0x0000000020000090                I2C_IRQHandler
+                0x0000000020000090                LLE_IRQHandler
+                0x0000000020000090                WDOG_BAT_IRQHandler
+                0x0000000020000090                Ecall_U_Mode_Handler
+                0x0000000020000090                TMR3_IRQHandler
+                0x0000000020000090                SW_Handler
+                0x0000000020000090                SPI0_IRQHandler
+                0x0000000020000090                UART3_IRQHandler
+                0x0000000020000090                TMR1_IRQHandler
+ *(.highcode)
+ .highcode      0x0000000020000092      0x2ce C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+                0x0000000020000092                SetSysClock
+                0x0000000020000252                SYS_ResetExecute
+                0x000000002000032a                mDelayuS
+                0x0000000020000338                mDelaymS
+ .highcode      0x0000000020000360      0x426 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+                0x0000000020000360                FLASH_ROM_BEG
+                0x0000000020000372                FLASH_ROM_END
+                0x0000000020000380                FLASH_ROM_IN
+                0x000000002000038e                FLASH_ROM_OUT
+                0x000000002000039c                FLASH_ROM_ADDR
+                0x00000000200003e4                FLASH_ROM_WAIT
+                0x000000002000041c                FLASH_EEPROM_CMD
+ *(.highcode.*)
+                0x0000000020000788                . = ALIGN (0x4)
+ *fill*         0x0000000020000786        0x2 
+                0x0000000020000788                PROVIDE (_highcode_vma_end = .)
+
+.text           0x000000000006d78c     0x1438
+                0x000000000006d78c                . = ALIGN (0x4)
+ *(SORT_NONE(.handle_reset))
+ .handle_reset  0x000000000006d78c       0xba C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+                0x000000000006d78c                handle_reset
+ *(.text)
+ .text          0x000000000006d846       0xa8 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memset.o)
+                0x000000000006d846                memset
+ *(.text.*)
+ .text.startup.main
+                0x000000000006d8ee      0x1e4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+                0x000000000006d8ee                main
+ .text.ota_init
+                0x000000000006dad2       0x18 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                0x000000000006dad2                ota_init
+ .text.ota_command
+                0x000000000006daea      0x284 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                0x000000000006daea                ota_command
+ .text.ota_poll
+                0x000000000006dd6e       0xb2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                0x000000000006dd6e                ota_poll
+ .text.ota_disconnect
+                0x000000000006de20       0x16 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                0x000000000006de20                ota_disconnect
+ .text.ota_status
+                0x000000000006de36       0x56 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                0x000000000006de36                ota_status
+ .text.crc32_update
+                0x000000000006de8c       0x2e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006de8c                crc32_update
+ .text.crc32    0x000000000006deba       0x16 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006deba                crc32
+ .text.load_le32
+                0x000000000006ded0       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006ded0                load_le32
+ .text.store_le32
+                0x000000000006deee       0x1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006deee                store_le32
+ .text.meta_valid
+                0x000000000006df0a       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006df0a                meta_valid
+ .text.meta_make
+                0x000000000006df62       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                0x000000000006df62                meta_make
+ .text.wire_reset
+                0x000000000006df92        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+                0x000000000006df92                wire_reset
+ .text.wire_feed
+                0x000000000006df9c       0xb8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+                0x000000000006df9c                wire_feed
+ .text.wire_encode
+                0x000000000006e054       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+                0x000000000006e054                wire_encode
+ .text.serial_init
+                0x000000000006e0ac       0x12 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+                0x000000000006e0ac                serial_init
+ .text.serial_tick
+                0x000000000006e0be       0x56 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+                0x000000000006e0be                serial_tick
+ .text.serial_poll
+                0x000000000006e114       0xb0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+                0x000000000006e114                serial_poll
+ .text.storage_erase
+                0x000000000006e1c4       0x48 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e1c4                storage_erase
+ .text.storage_write
+                0x000000000006e20c       0x46 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e20c                storage_write
+ .text.storage_read
+                0x000000000006e252        0x2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e252                storage_read
+ .text.storage_meta_read
+                0x000000000006e254       0x10 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e254                storage_meta_read
+ .text.storage_meta_clear
+                0x000000000006e264       0x3e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e264                storage_meta_clear
+ .text.storage_meta_write
+                0x000000000006e2a2       0x42 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e2a2                storage_meta_write
+ .text.storage_crc
+                0x000000000006e2e4       0x68 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                0x000000000006e2e4                storage_crc
+ .text.boot_active_valid
+                0x000000000006e34c       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+                0x000000000006e34c                boot_active_valid
+ .text.boot_install_pending
+                0x000000000006e372       0xc6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+                0x000000000006e372                boot_install_pending
+ .text.emit     0x000000000006e438       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .text.diag_printf
+                0x000000000006e458      0x1aa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+                0x000000000006e458                diag_printf
+ .text.diag_set_quiet
+                0x000000000006e602        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e602                diag_set_quiet
+ .text.diag_is_quiet
+                0x000000000006e60c        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e60c                diag_is_quiet
+ .text.diag_uart_init
+                0x000000000006e616       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e616                diag_uart_init
+ .text.diag_putc
+                0x000000000006e66e       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e66e                diag_putc
+ .text.diag_flush
+                0x000000000006e68e       0x1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e68e                diag_flush
+ .text.diag_entry
+                0x000000000006e6aa       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e6aa                diag_entry
+ .text.diag_fault
+                0x000000000006e6f8       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                0x000000000006e6f8                diag_fault
+ *fill*         0x000000000006e728        0x0 
+ .text.diag_trap
+                0x000000000006e728       0x24 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+                0x000000000006e728                NMI_Handler
+                0x000000000006e728                HardFault_Handler
+ .text.GetSysClock
+                0x000000000006e74c       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+                0x000000000006e74c                GetSysClock
+ .text.SYS_GetSysTickCnt
+                0x000000000006e78c        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+                0x000000000006e78c                SYS_GetSysTickCnt
+ .text.GPIOA_ModeCfg
+                0x000000000006e796       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+                0x000000000006e796                GPIOA_ModeCfg
+ .text.UART1_BaudRateCfg
+                0x000000000006e83a       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+                0x000000000006e83a                UART1_BaudRateCfg
+ .text.UART1_DefInit
+                0x000000000006e86a       0x32 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+                0x000000000006e86a                UART1_DefInit
+ .text.UART1_Reset
+                0x000000000006e89c        0xe C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+                0x000000000006e89c                UART1_Reset
+ .text.UART1_SendString
+                0x000000000006e8aa       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+                0x000000000006e8aa                UART1_SendString
+ .text.FLASH_ROM_READ
+                0x000000000006e8d2       0x1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+                0x000000000006e8d2                FLASH_ROM_READ
+ .text.memcmp   0x000000000006e8ee       0x26 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+                0x000000000006e8ee                memcmp
+ .text.memcpy   0x000000000006e914       0xb6 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
+                0x000000000006e914                memcpy
+ *(.rodata)
+ *(.rodata*)
+ *fill*         0x000000000006e9ca        0x2 
+ .rodata.main.str1.4
+                0x000000000006e9cc      0x145 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ *fill*         0x000000000006eb11        0x3 
+ .rodata.diag_printf.str1.4
+                0x000000000006eb14       0x19 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ *fill*         0x000000000006eb2d        0x3 
+ .rodata.diag_entry.str1.4
+                0x000000000006eb30       0x4c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .rodata.diag_fault.str1.4
+                0x000000000006eb7c       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                                         0x33 (size before relaxing)
+ .rodata.GPIOA_ModeCfg
+                0x000000000006ebb0       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ *(.sdata2.*)
+ *(.glue_7)
+ *(.glue_7t)
+ *(.gnu.linkonce.t.*)
+                0x000000000006ebc4                . = ALIGN (0x4)
+
+.rela.dyn       0x000000000006ebc4        0x0
+ .rela.text.diag_trap
+                0x000000000006ebc4        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .rela.init     0x000000000006ebc4        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .rela.vector   0x000000000006ebc4        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .rela.handle_reset
+                0x000000000006ebc4        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+
+.fini           0x000000000006ebc4        0x0
+ *(SORT_NONE(.fini))
+                0x000000000006ebc4                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (_etext = .)
+                [!provide]                        PROVIDE (_eitcm = .)
+
+.preinit_array  0x000000000006ebc4        0x0
+                [!provide]                        PROVIDE (__preinit_array_start = .)
+ *(.preinit_array)
+                [!provide]                        PROVIDE (__preinit_array_end = .)
+
+.init_array     0x000000000006ebc4        0x0
+                [!provide]                        PROVIDE (__init_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
+ *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
+                [!provide]                        PROVIDE (__init_array_end = .)
+
+.fini_array     0x000000000006ebc4        0x0
+                [!provide]                        PROVIDE (__fini_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
+ *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
+                [!provide]                        PROVIDE (__fini_array_end = .)
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT_BY_NAME(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT_BY_NAME(.dtors.*))
+ *(.dtors)
+
+.dalign         0x0000000020000788        0x0 load address 0x000000000006ebc4
+                0x0000000020000788                . = (ORIGIN (RAM) + SIZEOF (.highcode))
+
+.dlalign        0x000000000006ebc4        0x0
+                0x000000000006ebc4                . = ALIGN (0x4)
+                0x000000000006ebc4                PROVIDE (_data_lma = .)
+
+.data           0x0000000020000788        0x0 load address 0x000000000006ebc4
+                0x0000000020000788                . = ALIGN (0x4)
+                0x0000000020000788                PROVIDE (_data_vma = .)
+ *(.gnu.linkonce.r.*)
+ *(.data .data.*)
+ *(.gnu.linkonce.d.*)
+                0x0000000020000788                . = ALIGN (0x8)
+                0x0000000020000f88                PROVIDE (__global_pointer$ = (. + 0x800))
+ *(.sdata .sdata.*)
+ *(.gnu.linkonce.s.*)
+                0x0000000020000788                . = ALIGN (0x8)
+ *(.srodata.cst16)
+ *(.srodata.cst8)
+ *(.srodata.cst4)
+ *(.srodata.cst2)
+ *(.srodata .srodata.*)
+                0x0000000020000788                . = ALIGN (0x4)
+                0x0000000020000788                PROVIDE (_edata = .)
+
+.bss            0x0000000020000788       0xcc load address 0x000000000006ebc4
+                0x0000000020000788                . = ALIGN (0x4)
+                0x0000000020000788                PROVIDE (_sbss = .)
+ *(.sbss*)
+ .sbss.idle_ticks
+                0x0000000020000788        0x2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .sbss.transaction_idle
+                0x000000002000078a        0x2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .sbss.quiet    0x000000002000078c        0x1 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ *(.gnu.linkonce.sb.*)
+ *(.bss*)
+ *fill*         0x000000002000078d        0x3 
+ .bss.ota       0x0000000020000790       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .bss.wire      0x00000000200007c0       0x92 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ *(.gnu.linkonce.b.*)
+ *(COMMON*)
+                0x0000000020000854                . = ALIGN (0x4)
+ *fill*         0x0000000020000852        0x2 
+                0x0000000020000854                PROVIDE (_ebss = .)
+                0x0000000020000854                PROVIDE (_end = _ebss)
+                [!provide]                        PROVIDE (end = .)
+
+.stack          0x0000000020006200      0x600
+                0x0000000020006200                PROVIDE (_heap_end = .)
+                0x0000000020006200                . = ALIGN (0x4)
+                0x0000000020006200                PROVIDE (_susrstack = .)
+                0x0000000020006800                . = (. + __stack_size)
+ *fill*         0x0000000020006200      0x600 
+                0x0000000020006800                PROVIDE (_eusrstack = .)
+                0x0000000000000001                ASSERT ((_ebss <= _susrstack), RAM overlaps stack)
+OUTPUT(C:\Users\16547\Desktop\test\ch592f_dual_hid\dist\iap.elf elf32-littleriscv)
+
+.debug_info     0x0000000000000000     0xb756
+ .debug_info    0x0000000000000000     0x15cf C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_info    0x00000000000015cf     0x1309 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_info    0x00000000000028d8      0x308 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_info    0x0000000000002be0      0xb78 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_info    0x0000000000003758     0x10a4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_info    0x00000000000047fc     0x10f9 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_info    0x00000000000058f5      0x305 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_info    0x0000000000005bfa      0x28b C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_info    0x0000000000005e85     0x120e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_info    0x0000000000007093       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .debug_info    0x00000000000070b9     0x18bc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_info    0x0000000000008975      0xf32 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_info    0x00000000000098a7      0xe11 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_info    0x000000000000a6b8     0x107c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_info    0x000000000000b734       0x22 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+
+.debug_abbrev   0x0000000000000000     0x22e4
+ .debug_abbrev  0x0000000000000000      0x33a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_abbrev  0x000000000000033a      0x31e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_abbrev  0x0000000000000658      0x148 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_abbrev  0x00000000000007a0      0x2b0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_abbrev  0x0000000000000a50      0x2bc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_abbrev  0x0000000000000d0c      0x317 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_abbrev  0x0000000000001023       0xf3 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_abbrev  0x0000000000001116      0x180 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_abbrev  0x0000000000001296      0x31a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_abbrev  0x00000000000015b0       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .debug_abbrev  0x00000000000015c4      0x453 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_abbrev  0x0000000000001a17      0x2c8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_abbrev  0x0000000000001cdf      0x2aa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_abbrev  0x0000000000001f89      0x349 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_abbrev  0x00000000000022d2       0x12 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+
+.debug_loc      0x0000000000000000     0x222a
+ .debug_loc     0x0000000000000000      0x193 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_loc     0x0000000000000193      0x7bb C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_loc     0x000000000000094e      0x26b C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_loc     0x0000000000000bb9      0x15b C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_loc     0x0000000000000d14       0x9e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_loc     0x0000000000000db2      0x3e5 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_loc     0x0000000000001197       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_loc     0x00000000000011cb      0x1d8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_loc     0x00000000000013a3      0x131 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_loc     0x00000000000014d4      0x456 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_loc     0x000000000000192a      0x4ad C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_loc     0x0000000000001dd7      0x1ed C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_loc     0x0000000000001fc4      0x266 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+
+.debug_aranges  0x0000000000000000      0x3d0
+ .debug_aranges
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_aranges
+                0x0000000000000020       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_aranges
+                0x0000000000000060       0x48 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_aranges
+                0x00000000000000a8       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_aranges
+                0x00000000000000d8       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_aranges
+                0x0000000000000108       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_aranges
+                0x0000000000000158       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_aranges
+                0x0000000000000180       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_aranges
+                0x00000000000001a8       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_aranges
+                0x00000000000001f8       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .debug_aranges
+                0x0000000000000218       0x90 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_aranges
+                0x00000000000002a8       0x68 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_aranges
+                0x0000000000000310       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_aranges
+                0x0000000000000360       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_aranges
+                0x00000000000003a0       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+
+.debug_ranges   0x0000000000000000      0x4f8
+ .debug_ranges  0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_ranges  0x0000000000000028       0xd8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_ranges  0x0000000000000100       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_ranges  0x0000000000000150       0x38 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_ranges  0x0000000000000188       0x38 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_ranges  0x00000000000001c0       0x90 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_ranges  0x0000000000000250       0x18 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_ranges  0x0000000000000268       0x68 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_ranges  0x00000000000002d0       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_ranges  0x0000000000000328       0xe0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_ranges  0x0000000000000408       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_ranges  0x0000000000000460       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_ranges  0x00000000000004a0       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_ranges  0x00000000000004d0       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+
+.debug_line     0x0000000000000000     0x5e91
+ .debug_line    0x0000000000000000      0x6d2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_line    0x00000000000006d2      0xc45 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_line    0x0000000000001317      0x434 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_line    0x000000000000174b      0x44b C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_line    0x0000000000001b96      0x4ed C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_line    0x0000000000002083      0x5d7 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_line    0x000000000000265a      0x332 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_line    0x000000000000298c      0x63f C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_line    0x0000000000002fcb      0x545 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_line    0x0000000000003510       0x94 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+ .debug_line    0x00000000000035a4     0x10eb C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_line    0x000000000000468f      0x8f5 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_line    0x0000000000004f84      0x57a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_line    0x00000000000054fe      0x7f3 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_line    0x0000000000005cf1      0x1a0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+
+.debug_str      0x0000000000000000     0x177d
+ .debug_str     0x0000000000000000      0xc1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+                                        0xd10 (size before relaxing)
+ .debug_str     0x0000000000000c1c      0x1a4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+                                        0x80a (size before relaxing)
+ .debug_str     0x0000000000000dc0       0x44 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+                                        0x216 (size before relaxing)
+ .debug_str     0x0000000000000e04       0x6e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+                                        0x5f4 (size before relaxing)
+ .debug_str     0x0000000000000e72       0xb8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+                                        0xa56 (size before relaxing)
+ .debug_str     0x0000000000000f2a       0x8c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+                                        0x91b (size before relaxing)
+ .debug_str     0x0000000000000fb6       0x3c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+                                        0x25a (size before relaxing)
+ .debug_str     0x0000000000000ff2       0xa9 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+                                        0x213 (size before relaxing)
+ .debug_str     0x000000000000109b       0xe5 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+                                        0xae8 (size before relaxing)
+ .debug_str     0x0000000000001180       0x48 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\09_diag_trap.o
+                                         0x74 (size before relaxing)
+ .debug_str     0x00000000000011c8      0x1ea C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+                                        0xbb8 (size before relaxing)
+ .debug_str     0x00000000000013b2      0x16c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+                                        0x9c7 (size before relaxing)
+ .debug_str     0x000000000000151e      0x103 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+                                        0x92a (size before relaxing)
+ .debug_str     0x0000000000001621       0xec C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+                                        0x956 (size before relaxing)
+ .debug_str     0x000000000000170d       0x70 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\18_startup_CH592.o
+                                         0xa8 (size before relaxing)
+
+.comment        0x0000000000000000       0x33
+ .comment       0x0000000000000000       0x33 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+                                         0x34 (size before relaxing)
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+
+.debug_frame    0x0000000000000000      0x86c
+ .debug_frame   0x0000000000000000       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\00_main.o
+ .debug_frame   0x0000000000000040       0xbc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\01_ota.o
+ .debug_frame   0x00000000000000fc       0x9c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\02_common.o
+ .debug_frame   0x0000000000000198       0x74 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\03_wire.o
+ .debug_frame   0x000000000000020c       0x80 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\04_serial_ota.o
+ .debug_frame   0x000000000000028c       0xe0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\05_storage_ch592.o
+ .debug_frame   0x000000000000036c       0x60 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\06_boot_copy.o
+ .debug_frame   0x00000000000003cc       0x80 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\07_diag_format.o
+ .debug_frame   0x000000000000044c       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\08_diag_ch592.o
+ .debug_frame   0x00000000000004f0      0x14c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\11_CH59x_sys.o
+ .debug_frame   0x000000000000063c       0xb0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\12_CH59x_gpio.o
+ .debug_frame   0x00000000000006ec       0x9c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\13_CH59x_uart1.o
+ .debug_frame   0x0000000000000788       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\iap\14_CH59x_flash.o
+ .debug_frame   0x000000000000082c       0x20 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcmp.o)
+ .debug_frame   0x000000000000084c       0x20 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a(lib_a-memcpy.o)
