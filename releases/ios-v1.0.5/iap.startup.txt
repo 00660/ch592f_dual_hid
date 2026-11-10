@@ -1,0 +1,61 @@
+
+C:\Users\16547\Desktop\test\ch592f_dual_hid\dist\iap.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+Disassembly of section .highcode:
+
+Disassembly of section .text:
+
+0006d78c <handle_reset>:
+   6d78c:	1ff93197          	auipc	gp,0x1ff93
+   6d790:	7fc18193          	addi	gp,gp,2044 # 20000f88 <__global_pointer$>
+   6d794:	1ff99117          	auipc	sp,0x1ff99
+   6d798:	06c10113          	addi	sp,sp,108 # 20006800 <_eusrstack>
+   6d79c:	00000517          	auipc	a0,0x0
+   6d7a0:	86850513          	addi	a0,a0,-1944 # 6d004 <_einit>
+   6d7a4:	1ff93597          	auipc	a1,0x1ff93
+   6d7a8:	85c58593          	addi	a1,a1,-1956 # 20000000 <_highcode_vma_start>
+   6d7ac:	1ff93617          	auipc	a2,0x1ff93
+   6d7b0:	fdc60613          	addi	a2,a2,-36 # 20000788 <_highcode_vma_end>
+   6d7b4:	00c5fa63          	bgeu	a1,a2,6d7c8 <handle_reset+0x3c>
+   6d7b8:	00052283          	lw	t0,0(a0)
+   6d7bc:	0055a023          	sw	t0,0(a1)
+   6d7c0:	0511                	addi	a0,a0,4
+   6d7c2:	0591                	addi	a1,a1,4
+   6d7c4:	fec5eae3          	bltu	a1,a2,6d7b8 <handle_reset+0x2c>
+   6d7c8:	00001517          	auipc	a0,0x1
+   6d7cc:	3fc50513          	addi	a0,a0,1020 # 6ebc4 <_data_lma>
+   6d7d0:	1ff93597          	auipc	a1,0x1ff93
+   6d7d4:	fb858593          	addi	a1,a1,-72 # 20000788 <_highcode_vma_end>
+   6d7d8:	1ff93617          	auipc	a2,0x1ff93
+   6d7dc:	fb060613          	addi	a2,a2,-80 # 20000788 <_highcode_vma_end>
+   6d7e0:	00c5fa63          	bgeu	a1,a2,6d7f4 <handle_reset+0x68>
+   6d7e4:	00052283          	lw	t0,0(a0)
+   6d7e8:	0055a023          	sw	t0,0(a1)
+   6d7ec:	0511                	addi	a0,a0,4
+   6d7ee:	0591                	addi	a1,a1,4
+   6d7f0:	fec5eae3          	bltu	a1,a2,6d7e4 <handle_reset+0x58>
+   6d7f4:	1ff93517          	auipc	a0,0x1ff93
+   6d7f8:	f9450513          	addi	a0,a0,-108 # 20000788 <_highcode_vma_end>
+   6d7fc:	8cc18593          	addi	a1,gp,-1844 # 20000854 <_ebss>
+   6d800:	00b57763          	bgeu	a0,a1,6d80e <handle_reset+0x82>
+   6d804:	00052023          	sw	zero,0(a0)
+   6d808:	0511                	addi	a0,a0,4
+   6d80a:	feb56de3          	bltu	a0,a1,6d804 <handle_reset+0x78>
+   6d80e:	42fd                	li	t0,31
+   6d810:	bc029073          	csrw	0xbc0,t0
+   6d814:	428d                	li	t0,3
+   6d816:	80429073          	csrw	0x804,t0
+   6d81a:	000022b7          	lui	t0,0x2
+   6d81e:	88828293          	addi	t0,t0,-1912 # 1888 <__stack_size+0x1288>
+   6d822:	30029073          	csrw	mstatus,t0
+   6d826:	1ff92297          	auipc	t0,0x1ff92
+   6d82a:	7da28293          	addi	t0,t0,2010 # 20000000 <_highcode_vma_start>
+   6d82e:	0032e293          	ori	t0,t0,3
+   6d832:	30529073          	csrw	mtvec,t0
+   6d836:	00000297          	auipc	t0,0x0
+   6d83a:	0b828293          	addi	t0,t0,184 # 6d8ee <main>
+   6d83e:	34129073          	csrw	mepc,t0
+   6d842:	30200073          	mret

@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.bin binary
+*.elf binary
+*.ota binary
+*.zip binary
+*.png binary
+releases/ios-v1.0.5/* binary
+releases/ios-v1.0.5/SHA256SUMS text diff merge eol=lf
+releases/android-v1.0.10/* binary
+releases/android-v1.0.10/SHA256SUMS text diff merge eol=lf

@@ -1,0 +1,643 @@
+Archive member included to satisfy reference by file (symbol)
+
+C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o (FLASH_EEPROM_CMD)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+                              C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o (__divdi3)
+c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+                              c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o) (__clz_tab)
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .text.diag_set_quiet
+                0x0000000000000000        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.LClk32K_Cfg
+                0x0000000000000000       0x66 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.HSECFG_Current
+                0x0000000000000000       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.HSECFG_Capacitance
+                0x0000000000000000       0x52 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.LSECFG_Current
+                0x0000000000000000       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.LClk32K_Select
+                0x0000000000000000       0x6a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.LSECFG_Capacitance
+                0x0000000000000000       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_InitTime
+                0x0000000000000000      0x1d0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_GetTime
+                0x0000000000000000      0x15c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_SetCycle32k
+                0x0000000000000000       0x72 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .highcode      0x0000000000000000       0x18 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.Calibration_LSI
+                0x0000000000000000      0x8c4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_TMRFunCfg
+                0x0000000000000000       0x84 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_TRIGFunCfg
+                0x0000000000000000       0x6e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_ModeFunDisable
+                0x0000000000000000       0x5c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_GetITFlag
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text.RTC_ClearITFlag
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_info    0x0000000000000000     0x2249 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_abbrev  0x0000000000000000      0x462 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_loc     0x0000000000000000      0xccc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_aranges
+                0x0000000000000000       0x98 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_ranges  0x0000000000000000      0x1b8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_line    0x0000000000000000     0x2ad9 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_str     0x0000000000000000      0xd0c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .debug_frame   0x0000000000000000      0x1e4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .highcode      0x0000000000000000      0x2e0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.SYS_GetInfoSta
+                0x0000000000000000       0x24 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.SYS_DisableAllIrq
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.SYS_RecoverIrq
+                0x0000000000000000       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.SYS_GetSysTickCnt
+                0x0000000000000000        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.WWDG_ITCfg
+                0x0000000000000000       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.WWDG_ResetCfg
+                0x0000000000000000       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text.WWDG_ClearFlag
+                0x0000000000000000       0x4a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text._write   0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text._sbrk    0x0000000000000000       0x2e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .sdata.curbrk.3997
+                0x0000000000000000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOB_ModeCfg
+                0x0000000000000000       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .rodata.GPIOB_ModeCfg
+                0x0000000000000000       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOA_ITModeCfg
+                0x0000000000000000       0x82 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOA_ITEdgeTypeCfg
+                0x0000000000000000       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOB_ITModeCfg
+                0x0000000000000000       0x8a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOB_ITEdgeTypeCfg
+                0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOPinRemap
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOAGPPCfg
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOA_PinCfg
+                0x0000000000000000       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text.GPIOB_PinCfg
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text.UART1_ByteTrigCfg
+                0x0000000000000000       0x1a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text.UART1_INTCfg
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text.UART1_Reset
+                0x0000000000000000        0xe C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text.UART1_SendString
+                0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text.UART1_RecvString
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text.FLASH_ROM_READ
+                0x0000000000000000       0x1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text.UserOptionByteConfig
+                0x0000000000000000       0xdc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text.UserOptionByteClose_SWD
+                0x0000000000000000       0x7e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text.UserOptionByte_Active
+                0x0000000000000000       0x88 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text.GET_UNIQUE_ID
+                0x0000000000000000       0x5a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_info    0x0000000000000000     0x107c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_abbrev  0x0000000000000000      0x349 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_loc     0x0000000000000000      0x266 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_aranges
+                0x0000000000000000       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_ranges  0x0000000000000000       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_line    0x0000000000000000      0x7f3 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_str     0x0000000000000000      0x956 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .debug_frame   0x0000000000000000       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text.PWR_DCDCCfg
+                0x0000000000000000      0x122 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text.PWR_UnitModCfg
+                0x0000000000000000       0x5e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text.PWR_PeriphClkCfg
+                0x0000000000000000       0x52 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text.PWR_PeriphWakeUpCfg
+                0x0000000000000000      0x122 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text.PowerMonitor
+                0x0000000000000000       0xec C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .highcode      0x0000000000000000      0x538 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_info    0x0000000000000000     0x205f C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_abbrev  0x0000000000000000      0x416 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_loc     0x0000000000000000      0x7b0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_aranges
+                0x0000000000000000       0x60 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_ranges  0x0000000000000000      0x140 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_line    0x0000000000000000     0x1c0d C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_str     0x0000000000000000      0xbdd C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .debug_frame   0x0000000000000000      0x160 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_DataCalib_Rough
+                0x0000000000000000       0x92 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_ExtSingleChSampInit
+                0x0000000000000000       0x3c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_ExtDiffChSampInit
+                0x0000000000000000       0x3c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_InterTSSampInit
+                0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_InterBATSampInit
+                0x0000000000000000       0x2a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.TouchKey_ChSampInit
+                0x0000000000000000       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_ExcutSingleConver
+                0x0000000000000000       0x22 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.TouchKey_ExcutSingleConver
+                0x0000000000000000       0x2e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_AutoConverCycle
+                0x0000000000000000        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.ADC_DMACfg
+                0x0000000000000000       0x4a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text.adc_to_temperature_celsius
+                0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_info    0x0000000000000000      0xfa1 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_abbrev  0x0000000000000000      0x2cf C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_loc     0x0000000000000000      0x25c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_aranges
+                0x0000000000000000       0x70 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_ranges  0x0000000000000000       0x60 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_line    0x0000000000000000      0x928 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_str     0x0000000000000000      0xb06 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .debug_frame   0x0000000000000000       0xc0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MSTATUS
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MSTATUS
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MISA
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MISA
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MTVEC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MTVEC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MSCRATCH
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MSCRATCH
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MEPC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MEPC
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MCAUSE
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MCAUSE
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MTVAL
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__set_MTVAL
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MVENDORID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MARCHID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MIMPID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_MHARTID
+                0x0000000000000000        0x6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text.__get_SP
+                0x0000000000000000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_info    0x0000000000000000      0x376 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_abbrev  0x0000000000000000       0xe0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_aranges
+                0x0000000000000000       0xb0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_ranges  0x0000000000000000       0xa0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_line    0x0000000000000000      0x427 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_str     0x0000000000000000      0x294 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .debug_frame   0x0000000000000000      0x140 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+ .text          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .data          0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .bss           0x0000000000000000        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .highcode      0x0000000000000000      0x504 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .comment       0x0000000000000000       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a(ISP583.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .text.__divdi3
+                0x0000000000000000      0x3d8 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .eh_frame      0x0000000000000000       0x28 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_divdi3.o)
+ .text          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .data          0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .bss           0x0000000000000000        0x0 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+ .rodata.__clz_tab
+                0x0000000000000000      0x100 c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_clz.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000000000000 0x0000000000001000 xr
+RAM              0x0000000020000000 0x0000000000006800 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\04_CH59x_clk.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\08_CH59x_flash.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\09_CH59x_pwr.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\10_CH59x_adc.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\11_core_riscv.o
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+START GROUP
+LOAD C:\Users\16547\Desktop\test\ch592f_dual_hid\vendor\ch592\EVT\EXAM\SRC\StdPeriphDriver\libISP592.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libm.a
+END GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+START GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
+END GROUP
+START GROUP
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD c:/tc/gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
+END GROUP
+                0x0000000000000600                __stack_size = 0x600
+                [!provide]                        PROVIDE (_stack_size = __stack_size)
+
+.init           0x0000000000000000        0x4
+                0x0000000000000000                _sinit = .
+                0x0000000000000000                . = ALIGN (0x4)
+ *(SORT_NONE(.init))
+ .init          0x0000000000000000        0x4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+                0x0000000000000000                _start
+ *(.ImageFlag)
+ *(.ImageFlag.*)
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _einit = .
+
+.highcodelalign
+                0x0000000000000004        0x0
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                PROVIDE (_highcode_lma = .)
+
+.highcode       0x0000000020000000       0x94 load address 0x0000000000000004
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                PROVIDE (_highcode_vma_start = .)
+ *(.vector)
+ .vector        0x0000000020000000       0x90 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+ *(SORT_NONE(.vector_handler))
+ .vector_handler
+                0x0000000020000090        0x2 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+                0x0000000020000090                GPIOB_IRQHandler
+                0x0000000020000090                GPIOA_IRQHandler
+                0x0000000020000090                SysTick_Handler
+                0x0000000020000090                UART1_IRQHandler
+                0x0000000020000090                UART0_IRQHandler
+                0x0000000020000090                BB_IRQHandler
+                0x0000000020000090                Break_Point_Handler
+                0x0000000020000090                TMR0_IRQHandler
+                0x0000000020000090                Ecall_M_Mode_Handler
+                0x0000000020000090                RTC_IRQHandler
+                0x0000000020000090                UART2_IRQHandler
+                0x0000000020000090                PWMX_IRQHandler
+                0x0000000020000090                ADC_IRQHandler
+                0x0000000020000090                TMR2_IRQHandler
+                0x0000000020000090                USB_IRQHandler
+                0x0000000020000090                I2C_IRQHandler
+                0x0000000020000090                LLE_IRQHandler
+                0x0000000020000090                WDOG_BAT_IRQHandler
+                0x0000000020000090                Ecall_U_Mode_Handler
+                0x0000000020000090                TMR3_IRQHandler
+                0x0000000020000090                SW_Handler
+                0x0000000020000090                SPI0_IRQHandler
+                0x0000000020000090                UART3_IRQHandler
+                0x0000000020000090                TMR1_IRQHandler
+ *(.highcode)
+ *(.highcode.*)
+                0x0000000020000094                . = ALIGN (0x4)
+ *fill*         0x0000000020000092        0x2 
+                0x0000000020000094                PROVIDE (_highcode_vma_end = .)
+
+.text           0x0000000000000098      0x600
+                0x0000000000000098                . = ALIGN (0x4)
+ *(SORT_NONE(.handle_reset))
+ .handle_reset  0x0000000000000098       0xb6 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+                0x0000000000000098                handle_reset
+ *(.text)
+ *(.text.*)
+ .text.startup.main
+                0x000000000000014e       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+                0x000000000000014e                main
+ .text.emit     0x0000000000000174       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .text.diag_printf
+                0x0000000000000194      0x1aa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+                0x0000000000000194                diag_printf
+ .text.diag_is_quiet
+                0x000000000000033e        0xa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x000000000000033e                diag_is_quiet
+ .text.diag_uart_init
+                0x0000000000000348       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x0000000000000348                diag_uart_init
+ .text.diag_putc
+                0x00000000000003a0       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x00000000000003a0                diag_putc
+ .text.diag_flush
+                0x00000000000003c0       0x1c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x00000000000003c0                diag_flush
+ .text.diag_entry
+                0x00000000000003dc       0x4e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x00000000000003dc                diag_entry
+ .text.diag_fault
+                0x000000000000042a       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                0x000000000000042a                diag_fault
+ *fill*         0x000000000000045a        0x2 
+ .text.diag_trap
+                0x000000000000045c       0x24 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+                0x000000000000045c                NMI_Handler
+                0x000000000000045c                HardFault_Handler
+ .text.GetSysClock
+                0x0000000000000480       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+                0x0000000000000480                GetSysClock
+ .text.GPIOA_ModeCfg
+                0x00000000000004c0       0xa0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+                0x00000000000004c0                GPIOA_ModeCfg
+ .text.UART1_BaudRateCfg
+                0x0000000000000560       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+                0x0000000000000560                UART1_BaudRateCfg
+ .text.UART1_DefInit
+                0x0000000000000590       0x32 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+                0x0000000000000590                UART1_DefInit
+ *(.rodata)
+ *(.rodata*)
+ *fill*         0x00000000000005c2        0x2 
+ .rodata.main.str1.4
+                0x00000000000005c4       0x1e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ *fill*         0x00000000000005e2        0x2 
+ .rodata.diag_printf.str1.4
+                0x00000000000005e4       0x19 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ *fill*         0x00000000000005fd        0x3 
+ .rodata.diag_entry.str1.4
+                0x0000000000000600       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .rodata.diag_fault.str1.4
+                0x0000000000000650       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                                         0x33 (size before relaxing)
+ .rodata.GPIOA_ModeCfg
+                0x0000000000000684       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ *(.sdata2.*)
+ *(.glue_7)
+ *(.glue_7t)
+ *(.gnu.linkonce.t.*)
+                0x0000000000000698                . = ALIGN (0x4)
+
+.rela.dyn       0x0000000000000698        0x0
+ .rela.text.diag_trap
+                0x0000000000000698        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .rela.init     0x0000000000000698        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .rela.vector   0x0000000000000698        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .rela.handle_reset
+                0x0000000000000698        0x0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+
+.fini           0x0000000000000698        0x0
+ *(SORT_NONE(.fini))
+                0x0000000000000698                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (_etext = .)
+                [!provide]                        PROVIDE (_eitcm = .)
+
+.preinit_array  0x0000000000000698        0x0
+                [!provide]                        PROVIDE (__preinit_array_start = .)
+ *(.preinit_array)
+                [!provide]                        PROVIDE (__preinit_array_end = .)
+
+.init_array     0x0000000000000698        0x0
+                [!provide]                        PROVIDE (__init_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
+ *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
+                [!provide]                        PROVIDE (__init_array_end = .)
+
+.fini_array     0x0000000000000698        0x0
+                [!provide]                        PROVIDE (__fini_array_start = .)
+ *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
+ *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
+                [!provide]                        PROVIDE (__fini_array_end = .)
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT_BY_NAME(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT_BY_NAME(.dtors.*))
+ *(.dtors)
+
+.dalign         0x0000000020000094        0x0 load address 0x0000000000000698
+                0x0000000020000094                . = (ORIGIN (RAM) + SIZEOF (.highcode))
+
+.dlalign        0x0000000000000698        0x0
+                0x0000000000000698                . = ALIGN (0x4)
+                0x0000000000000698                PROVIDE (_data_lma = .)
+
+.data           0x0000000020000094        0x4 load address 0x0000000000000698
+                0x0000000020000094                . = ALIGN (0x4)
+                0x0000000020000094                PROVIDE (_data_vma = .)
+ *(.gnu.linkonce.r.*)
+ *(.data .data.*)
+ *(.gnu.linkonce.d.*)
+                0x0000000020000098                . = ALIGN (0x8)
+ *fill*         0x0000000020000094        0x4 
+                0x0000000020000898                PROVIDE (__global_pointer$ = (. + 0x800))
+ *(.sdata .sdata.*)
+ *(.gnu.linkonce.s.*)
+                0x0000000020000098                . = ALIGN (0x8)
+ *(.srodata.cst16)
+ *(.srodata.cst8)
+ *(.srodata.cst4)
+ *(.srodata.cst2)
+ *(.srodata .srodata.*)
+                0x0000000020000098                . = ALIGN (0x4)
+                0x0000000020000098                PROVIDE (_edata = .)
+
+.bss            0x0000000020000098        0x4 load address 0x0000000000000698
+                0x0000000020000098                . = ALIGN (0x4)
+                0x0000000020000098                PROVIDE (_sbss = .)
+ *(.sbss*)
+ .sbss.quiet    0x0000000020000098        0x1 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ *(.gnu.linkonce.sb.*)
+ *(.bss*)
+ *(.gnu.linkonce.b.*)
+ *(COMMON*)
+                0x000000002000009c                . = ALIGN (0x4)
+ *fill*         0x0000000020000099        0x3 
+                0x000000002000009c                PROVIDE (_ebss = .)
+                0x000000002000009c                PROVIDE (_end = _ebss)
+                [!provide]                        PROVIDE (end = .)
+
+.stack          0x0000000020006200      0x600
+                0x0000000020006200                PROVIDE (_heap_end = .)
+                0x0000000020006200                . = ALIGN (0x4)
+                0x0000000020006200                PROVIDE (_susrstack = .)
+                0x0000000020006800                . = (. + __stack_size)
+ *fill*         0x0000000020006200      0x600 
+                0x0000000020006800                PROVIDE (_eusrstack = .)
+                0x0000000000000001                ASSERT ((_ebss <= _susrstack), RAM overlaps stack)
+OUTPUT(C:\Users\16547\Desktop\test\ch592f_dual_hid\dist\jump.elf elf32-littleriscv)
+
+.debug_info     0x0000000000000000     0x4bda
+ .debug_info    0x0000000000000000       0xfa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_info    0x00000000000000fa      0x28b C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_info    0x0000000000000385     0x120e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_info    0x0000000000001593       0x26 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .debug_info    0x00000000000015b9     0x18bc C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_info    0x0000000000002e75      0xf32 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_info    0x0000000000003da7      0xe11 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .debug_info    0x0000000000004bb8       0x22 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+
+.debug_abbrev   0x0000000000000000      0xf1f
+ .debug_abbrev  0x0000000000000000       0x9a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_abbrev  0x000000000000009a      0x180 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_abbrev  0x000000000000021a      0x31a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_abbrev  0x0000000000000534       0x14 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .debug_abbrev  0x0000000000000548      0x453 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_abbrev  0x000000000000099b      0x2c8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_abbrev  0x0000000000000c63      0x2aa C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .debug_abbrev  0x0000000000000f0d       0x12 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+
+.debug_aranges  0x0000000000000000      0x230
+ .debug_aranges
+                0x0000000000000000       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_aranges
+                0x0000000000000020       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_aranges
+                0x0000000000000048       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_aranges
+                0x0000000000000098       0x20 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .debug_aranges
+                0x00000000000000b8       0x90 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_aranges
+                0x0000000000000148       0x68 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_aranges
+                0x00000000000001b0       0x50 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .debug_aranges
+                0x0000000000000200       0x30 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+
+.debug_ranges   0x0000000000000000      0x270
+ .debug_ranges  0x0000000000000000       0x10 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_ranges  0x0000000000000010       0x68 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_ranges  0x0000000000000078       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_ranges  0x00000000000000d0       0xe0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_ranges  0x00000000000001b0       0x58 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_ranges  0x0000000000000208       0x40 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .debug_ranges  0x0000000000000248       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+
+.debug_line     0x0000000000000000     0x2e73
+ .debug_line    0x0000000000000000      0x161 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_line    0x0000000000000161      0x63f C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_line    0x00000000000007a0      0x545 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_line    0x0000000000000ce5       0x94 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+ .debug_line    0x0000000000000d79     0x10eb C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_line    0x0000000000001e64      0x8f5 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_line    0x0000000000002759      0x57a C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+ .debug_line    0x0000000000002cd3      0x1a0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+
+.debug_str      0x0000000000000000     0x115f
+ .debug_str     0x0000000000000000      0x15d C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+                                        0x19a (size before relaxing)
+ .debug_str     0x000000000000015d       0xa9 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+                                        0x213 (size before relaxing)
+ .debug_str     0x0000000000000206      0x90e C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+                                        0xae8 (size before relaxing)
+ .debug_str     0x0000000000000b14       0x48 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\03_diag_trap.o
+                                         0x74 (size before relaxing)
+ .debug_str     0x0000000000000b5c      0x307 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+                                        0xbb8 (size before relaxing)
+ .debug_str     0x0000000000000e63      0x16c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+                                        0x9c7 (size before relaxing)
+ .debug_str     0x0000000000000fcf      0x120 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+                                        0x92a (size before relaxing)
+ .debug_str     0x00000000000010ef       0x70 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\12_startup_CH592.o
+                                         0xa8 (size before relaxing)
+
+.comment        0x0000000000000000       0x33
+ .comment       0x0000000000000000       0x33 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+                                         0x34 (size before relaxing)
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .comment       0x0000000000000033       0x34 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+
+.debug_frame    0x0000000000000000      0x3e4
+ .debug_frame   0x0000000000000000       0x28 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\00_jump.o
+ .debug_frame   0x0000000000000028       0x80 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_frame   0x00000000000000a8       0xa4 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_frame   0x000000000000014c      0x14c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_frame   0x0000000000000298       0xb0 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_frame   0x0000000000000348       0x9c C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
+
+.debug_loc      0x0000000000000000      0xdf9
+ .debug_loc     0x0000000000000000      0x1d8 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\01_diag_format.o
+ .debug_loc     0x00000000000001d8      0x131 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\02_diag_ch592.o
+ .debug_loc     0x0000000000000309      0x456 C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\05_CH59x_sys.o
+ .debug_loc     0x000000000000075f      0x4ad C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\06_CH59x_gpio.o
+ .debug_loc     0x0000000000000c0c      0x1ed C:\Users\16547\Desktop\test\ch592f_dual_hid\build\jump\07_CH59x_uart1.o
