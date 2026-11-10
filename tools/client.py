@@ -132,11 +132,27 @@ async def wait_hid_idle(client, report_id=0):
 
 
 async def play_reports(client, reports):
+    reports = list(reports)
+    timed_touch = len(reports) > 2 and all(len(p) == 8 and p[0] == 3 for p, _ in reports)
+    deadline = time.monotonic()
     try:
-        for packet, delay in reports:
+        for index, (packet, delay) in enumerate(reports):
+            if timed_touch:
+                deadline += delay
+                # Coalesce only late absolute moves within the same contact.
+                # Always send contact transitions and the final position.
+                if (0 < index < len(reports)-1 and packet[1] == 1 and
+                        reports[index-1][0][:3] == packet[:3] == reports[index+1][0][:3] and
+                        time.monotonic() >= deadline):
+                    continue
             await client.write_gatt_char(COMMAND, packet, response=True)
             await wait_hid_idle(client, packet[0] if packet[0] <= 3 else 0)
-            await asyncio.sleep(delay)
+            if timed_touch:
+                if index == 0:
+                    deadline = time.monotonic() + delay
+                await asyncio.sleep(max(0, deadline - time.monotonic()))
+            else:
+                await asyncio.sleep(delay)
     finally:
         if client.is_connected:
             await client.write_gatt_char(COMMAND, b'\x04', response=True)

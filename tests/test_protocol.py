@@ -116,7 +116,8 @@ class ProtocolTests(unittest.TestCase):
         self.assertLessEqual(len(data), 512)
         pos, report_id, size, count, depth, page, usage = 0, 0, 0, 0, 0, 0, 0
         bits = {}
-        stack, applications = [], []
+        stack, applications, usages, inputs, features = [], [], [], [], []
+        logical_max = 0
         while pos < len(data):
             prefix = data[pos]
             length = [0, 1, 2, 4][prefix & 3]
@@ -124,13 +125,15 @@ class ProtocolTests(unittest.TestCase):
             value = int.from_bytes(data[pos+1:pos+1+length], 'little')
             if kind == 1:
                 if tag == 0: page = value
+                if tag == 2: logical_max = value
                 if tag == 7: size = value
                 if tag == 8: report_id = value
                 if tag == 9: count = value
-                if tag == 10: stack.append((report_id, size, count, page))
-                if tag == 11: report_id, size, count, page = stack.pop()
+                if tag == 10: stack.append((report_id, size, count, page, logical_max))
+                if tag == 11: report_id, size, count, page, logical_max = stack.pop()
             if kind == 2 and tag == 0:
                 usage = value
+                usages.append((page, usage))
             if kind == 0:
                 if tag == 10:
                     depth += 1
@@ -140,12 +143,21 @@ class ProtocolTests(unittest.TestCase):
                 if tag in (8, 9, 11):
                     key = (report_id, tag)
                     bits[key] = bits.get(key, 0) + size * count
+                    if tag == 8 and not value & 1:
+                        inputs.extend((report_id, p, u) for p, u in usages)
+                    if tag == 11 and not value & 1:
+                        features.extend((report_id, p, u, logical_max) for p, u in usages)
+                usages.clear()
             pos += length + 1
         self.assertEqual(depth, 0)
         self.assertEqual(stack, [])
         expected = {(1, 8): 64, (1, 9): 8, (2, 8): 56}
         if profile == 'android':
             expected.update({(3, 8): 56, (4, 11): 8})
+            self.assertEqual([item for item in inputs if item[0] == 3],
+                             [(3, 13, 0x42), (3, 13, 0x51),
+                              (3, 1, 0x30), (3, 1, 0x31), (3, 13, 0x54)])
+        self.assertEqual(features, [(4, 13, 0x55, 2)] if profile == 'android' else [])
         self.assertEqual(bits, expected)
         self.assertEqual(applications, [(1, 6), (1, 2)] + ([(13, 4)] if profile == 'android' else []))
 
@@ -237,6 +249,31 @@ class UpgradeTests(unittest.IsolatedAsyncioTestCase):
         client = Client()
         await play_reports(client, [(mouse(0, -50, 1), 0), (mouse(), 0)])
         self.assertEqual(client.packets, [mouse(0, -50, 1), mouse(), b'\x04'])
+
+    async def test_touch_timing_coalesces_late_moves_and_keeps_endpoints(self):
+        from unittest.mock import patch
+        clock = [0.0]
+        packets = []
+        class Client:
+            is_connected = True
+            async def write_gatt_char(self, uuid, packet, response):
+                packets.append((clock[0], packet))
+                clock[0] += 0.04
+            async def read_gatt_char(self, uuid):
+                clock[0] += 0.06
+                return bytes([1, 2, 1, 1, 7, 0]) + bytes(14)
+        async def sleep(seconds):
+            clock[0] += seconds
+        reports = touch_swipe(16384, 28000, 16384, 6000, 700)
+        with patch('client.time.monotonic', lambda: clock[0]), patch('client.asyncio.sleep', sleep):
+            await play_reports(Client(), reports)
+        self.assertEqual(packets[0][1], touch(16384, 28000, 1))
+        self.assertEqual([p for _, p in packets[-3:]],
+                         [touch(16384, 6000, 1), touch(16384, 6000, 0), b'\x04'])
+        self.assertTrue(all(p[:3] == b'\x03\x01\x00' for _, p in packets[:-2]))
+        self.assertLess(len(packets), len(reports))
+        self.assertGreaterEqual(packets[-2][0] - packets[0][0], 0.7)
+        self.assertLess(packets[-2][0] - packets[0][0], 1.1)
 
     async def test_minimum_mtu_and_retry(self):
         class Transport:

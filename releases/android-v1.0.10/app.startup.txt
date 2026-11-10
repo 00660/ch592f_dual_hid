@@ -1,0 +1,60 @@
+
+C:\Users\16547\Desktop\test\ch592f_dual_hid\dist\app.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+Disassembly of section .highcode:
+
+Disassembly of section .text:
+
+0000304c <handle_reset>:
+    304c:	20000197          	auipc	gp,0x20000
+    3050:	c6c18193          	addi	gp,gp,-916 # 20002cb8 <__global_pointer$>
+    3054:	20003117          	auipc	sp,0x20003
+    3058:	7ac10113          	addi	sp,sp,1964 # 20006800 <_eusrstack>
+    305c:	ffffe517          	auipc	a0,0xffffe
+    3060:	fa850513          	addi	a0,a0,-88 # 1004 <_einit>
+    3064:	1fffd597          	auipc	a1,0x1fffd
+    3068:	f9c58593          	addi	a1,a1,-100 # 20000000 <_highcode_vma_start>
+    306c:	1ffff617          	auipc	a2,0x1ffff
+    3070:	fdc60613          	addi	a2,a2,-36 # 20002048 <_highcode_vma_end>
+    3074:	00c5fa63          	bgeu	a1,a2,3088 <handle_reset+0x3c>
+    3078:	00052283          	lw	t0,0(a0)
+    307c:	0055a023          	sw	t0,0(a1)
+    3080:	0511                	addi	a0,a0,4
+    3082:	0591                	addi	a1,a1,4
+    3084:	fec5eae3          	bltu	a1,a2,3078 <handle_reset+0x2c>
+    3088:	00024517          	auipc	a0,0x24
+    308c:	25850513          	addi	a0,a0,600 # 272e0 <_data_lma>
+    3090:	1ffff597          	auipc	a1,0x1ffff
+    3094:	fb858593          	addi	a1,a1,-72 # 20002048 <_highcode_vma_end>
+    3098:	84818613          	addi	a2,gp,-1976 # 20002500 <_edata>
+    309c:	00c5fa63          	bgeu	a1,a2,30b0 <handle_reset+0x64>
+    30a0:	00052283          	lw	t0,0(a0)
+    30a4:	0055a023          	sw	t0,0(a1)
+    30a8:	0511                	addi	a0,a0,4
+    30aa:	0591                	addi	a1,a1,4
+    30ac:	fec5eae3          	bltu	a1,a2,30a0 <handle_reset+0x54>
+    30b0:	84818513          	addi	a0,gp,-1976 # 20002500 <_edata>
+    30b4:	20003597          	auipc	a1,0x20003
+    30b8:	dfc58593          	addi	a1,a1,-516 # 20005eb0 <_ebss>
+    30bc:	00b57763          	bgeu	a0,a1,30ca <handle_reset+0x7e>
+    30c0:	00052023          	sw	zero,0(a0)
+    30c4:	0511                	addi	a0,a0,4
+    30c6:	feb56de3          	bltu	a0,a1,30c0 <handle_reset+0x74>
+    30ca:	42fd                	li	t0,31
+    30cc:	bc029073          	csrw	0xbc0,t0
+    30d0:	428d                	li	t0,3
+    30d2:	80429073          	csrw	0x804,t0
+    30d6:	000022b7          	lui	t0,0x2
+    30da:	88828293          	addi	t0,t0,-1912 # 1888 <_einit+0x884>
+    30de:	30029073          	csrw	mstatus,t0
+    30e2:	1fffd297          	auipc	t0,0x1fffd
+    30e6:	f1e28293          	addi	t0,t0,-226 # 20000000 <_highcode_vma_start>
+    30ea:	0032e293          	ori	t0,t0,3
+    30ee:	30529073          	csrw	mtvec,t0
+    30f2:	00000297          	auipc	t0,0x0
+    30f6:	0b828293          	addi	t0,t0,184 # 31aa <main>
+    30fa:	34129073          	csrw	mepc,t0
+    30fe:	30200073          	mret

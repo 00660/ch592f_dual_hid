@@ -1,0 +1,44 @@
+{
+  "board": "592f0301",
+  "version": "1.0.10",
+  "sdk_commit": "a46e0086f1ffb5e5502703970bff94888e67f4cb",
+  "compiler": "riscv-none-embed-gcc.exe (xPack GNU RISC-V Embedded GCC, 32-bit) 8.2.0",
+  "app_address": 4096,
+  "app_bytes": 157592,
+  "app_capacity": 221184,
+  "iap_bytes": 7108,
+  "jump_bytes": 1688,
+  "app_crc32": "aeedff71",
+  "hardware_validated": false,
+  "hid_profile": "android",
+  "hid_input_reports": [
+    1,
+    2,
+    3
+  ],
+  "startup": {
+    "app": "EVT\\EXAM\\BLE\\BackupUpgrade_OTA\\Startup\\startup_CH592.S",
+    "iap": "EVT\\EXAM\\BLE\\BackupUpgrade_IAP\\Startup\\startup_CH592.S",
+    "jump": "EVT\\EXAM\\BLE\\BackupUpgrade_IAP\\Startup\\startup_CH592.S"
+  },
+  "diagnostics": {
+    "uart": 1,
+    "rx": "PA8",
+    "tx": "PA9",
+    "baud": 115200,
+    "format": "8N1",
+    "heartbeat_ms": 5000,
+    "mute_on_uart_frame": true
+  },
+  "sha256": {
+    "app.bin": "9eb7b51a5d66c36978a8360dc9d190bb047f3c65c5401835165c14d7f34b0d22",
+    "app.hex": "80dba280bc7c2969beffc4c829f5002bade2a299356ae39a746152fa53509dd0",
+    "ch592f_3in1.ota": "a4eaa6a27636f576743f7971b0fb87b6951704afc63f1b0be13fa630a370057b",
+    "ch592f_3in1_factory.bin": "6c19ed04a300f3ccbb8218cadd8e3613457b2735cea46f6f4b606ab314c2aaf1",
+    "ch592f_3in1_factory.hex": "58819c32d09da7afcc59c23707f687a06723a7dddee8a480bd8f90416c79eac8",
+    "iap.bin": "9ed73d8474c9758414a6ee8e3609cbf6109a9c31fc27851642bbfd23de9614f1",
+    "iap.hex": "9dcc4c5b12819e6fdc31abba0efc9ae8b13d04ac5b614933d2eda1566b99706e",
+    "jump.bin": "4f19ce2401afc57a6f6929272bece3cb79cb10b94e5a5561addf07d11e9369bf",
+    "jump.hex": "1ac3542b3884f26000483edf43ff95d8855740af1f8a729bb64a4a50a0d35bfe"
+  }
+}

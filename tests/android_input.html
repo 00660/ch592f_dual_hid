@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CH592F input verification</title>
+<style>
+  body { margin: 0; padding: 20px; background: #f8fafc; color: #1e293b; font: 16px/1.5 system-ui, sans-serif; }
+  main { display: grid; gap: 16px; max-width: 600px; margin: auto; }
+  h1 { font-size: 20px; margin: 0; }
+  button, input { box-sizing: border-box; width: 100%; padding: 18px; font: inherit; border: 1px solid #94a3b8; border-radius: 10px; background: white; color: inherit; }
+  button { min-height: 96px; touch-action: manipulation; }
+  output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.5 monospace; }
+  #scroll { height: 200px; overflow-y: auto; border: 1px solid #94a3b8; border-radius: 10px; background: white; }
+  #scroll p { margin: 0; padding: 18px; border-bottom: 1px solid #e2e8f0; }
+</style>
+<main>
+  <h1>CH592F input verification</h1>
+  <label>Keyboard <input id="text" placeholder="Type with HID keyboard" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+  <output id="keyboard">Key: none</output>
+  <button id="target">Tap target: 0</button>
+  <output id="pointer">Pointer: none</output>
+  <output id="gesture">Gesture: none</output>
+  <div id="scroll" tabindex="0" aria-label="Scroll test"></div>
+  <output id="position">Scroll: 0</output>
+</main>
+<script>
+const target = document.getElementById('target');
+const pointer = document.getElementById('pointer');
+const gesture = document.getElementById('gesture');
+const scrollBox = document.getElementById('scroll');
+let clicks = 0, down = 0, up = 0, cancel = 0, moves = 0, right = 0;
+target.addEventListener('click', () => { target.textContent = 'Tap target: ' + (++clicks); });
+document.addEventListener('contextmenu', event => {
+  event.preventDefault();
+  gesture.textContent = 'Right clicks: ' + (++right);
+});
+for (const type of ['pointerdown', 'pointermove', 'pointerup', 'pointercancel']) {
+  document.addEventListener(type, event => {
+    if (type === 'pointerdown') down++;
+    if (type === 'pointerup') up++;
+    if (type === 'pointercancel') cancel++;
+    if (type === 'pointermove') moves++;
+    pointer.textContent = event.pointerType + ' ' + event.type + ' x=' + Math.round(event.clientX) +
+      ' y=' + Math.round(event.clientY) + ' buttons=' + event.buttons + ' trusted=' + event.isTrusted;
+    gesture.textContent = 'down=' + down + ' up=' + up + ' cancel=' + cancel + ' moves=' + moves;
+  }, { passive: true });
+}
+document.addEventListener('keyup', event => {
+  document.getElementById('keyboard').textContent = 'Key: ' + event.code + ' trusted=' + event.isTrusted;
+});
+for (let index = 1; index <= 30; index++) {
+  const row = document.createElement('p');
+  row.textContent = 'Scroll row ' + index;
+  scrollBox.append(row);
+}
+scrollBox.addEventListener('scroll', () => {
+  document.getElementById('position').textContent = 'Scroll: ' + Math.round(scrollBox.scrollTop);
+});
+</script>
+</html>

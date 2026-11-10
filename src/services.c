@@ -38,7 +38,8 @@ static uint8_t prop_report = GATT_PROP_READ | GATT_PROP_NOTIFY;
 static uint8_t hid_info[] = {0x11,0x01,0x00,0x02};
 static uint8_t input[HID_INPUT_COUNT][MAX_HID_REPORT_SIZE], led_output, control_point;
 #if HID_HAS_TOUCH
-static uint8_t contact_max = 1;
+/* Android requires at least two allocated MT slots for protocol B. */
+static uint8_t contact_max = 2;
 static uint8_t references[][2] = {{1,1},{2,1},{3,1},{1,2},{4,3}};
 #else
 static uint8_t references[][2] = {{1,1},{2,1},{1,2}};

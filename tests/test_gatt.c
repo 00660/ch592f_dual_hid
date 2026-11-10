@@ -186,7 +186,7 @@ int main(int argc, char **argv)
     services_send();
     assert(notification_length == TOUCH_REPORT_SIZE && notification_bytes[0] == 0);
     assert(read_attribute(0,&hid_attributes[FEATURE_VALUE],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
-    assert(length == 1 && out[0] == 1);
+    assert(length == 1 && out[0] == 2);
     assert(write_attribute(0,&hid_attributes[FEATURE_VALUE],enable,1,0,ATT_WRITE_REQ) == ATT_ERR_WRITE_NOT_PERMITTED);
     enable[0] = 0;
     assert(write_attribute(0,&hid_attributes[TOUCH_VALUE+1],enable,2,0,ATT_WRITE_REQ) == SUCCESS);

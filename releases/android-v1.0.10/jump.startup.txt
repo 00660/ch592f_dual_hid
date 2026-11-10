@@ -1,0 +1,60 @@
+
+C:\Users\16547\Desktop\test\ch592f_dual_hid\dist\jump.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+Disassembly of section .highcode:
+
+Disassembly of section .text:
+
+00000098 <handle_reset>:
+  98:	20001197          	auipc	gp,0x20001
+  9c:	80018193          	addi	gp,gp,-2048 # 20000898 <__global_pointer$>
+  a0:	20006117          	auipc	sp,0x20006
+  a4:	76010113          	addi	sp,sp,1888 # 20006800 <_eusrstack>
+  a8:	00400513          	li	a0,4
+  ac:	20000597          	auipc	a1,0x20000
+  b0:	f5458593          	addi	a1,a1,-172 # 20000000 <_highcode_vma_start>
+  b4:	20000617          	auipc	a2,0x20000
+  b8:	fe060613          	addi	a2,a2,-32 # 20000094 <_highcode_vma_end>
+  bc:	00c5fa63          	bgeu	a1,a2,d0 <handle_reset+0x38>
+  c0:	00052283          	lw	t0,0(a0)
+  c4:	0055a023          	sw	t0,0(a1)
+  c8:	0511                	addi	a0,a0,4
+  ca:	0591                	addi	a1,a1,4
+  cc:	fec5eae3          	bltu	a1,a2,c0 <handle_reset+0x28>
+  d0:	69800513          	li	a0,1688
+  d4:	20000597          	auipc	a1,0x20000
+  d8:	fc058593          	addi	a1,a1,-64 # 20000094 <_highcode_vma_end>
+  dc:	20000617          	auipc	a2,0x20000
+  e0:	fbc60613          	addi	a2,a2,-68 # 20000098 <_edata>
+  e4:	00c5fa63          	bgeu	a1,a2,f8 <handle_reset+0x60>
+  e8:	00052283          	lw	t0,0(a0)
+  ec:	0055a023          	sw	t0,0(a1)
+  f0:	0511                	addi	a0,a0,4
+  f2:	0591                	addi	a1,a1,4
+  f4:	fec5eae3          	bltu	a1,a2,e8 <handle_reset+0x50>
+  f8:	20000517          	auipc	a0,0x20000
+  fc:	fa050513          	addi	a0,a0,-96 # 20000098 <_edata>
+ 100:	20000597          	auipc	a1,0x20000
+ 104:	f9c58593          	addi	a1,a1,-100 # 2000009c <_ebss>
+ 108:	00b57763          	bgeu	a0,a1,116 <handle_reset+0x7e>
+ 10c:	00052023          	sw	zero,0(a0)
+ 110:	0511                	addi	a0,a0,4
+ 112:	feb56de3          	bltu	a0,a1,10c <handle_reset+0x74>
+ 116:	42fd                	li	t0,31
+ 118:	bc029073          	csrw	0xbc0,t0
+ 11c:	428d                	li	t0,3
+ 11e:	80429073          	csrw	0x804,t0
+ 122:	000022b7          	lui	t0,0x2
+ 126:	88828293          	addi	t0,t0,-1912 # 1888 <_data_lma+0x11f0>
+ 12a:	30029073          	csrw	mstatus,t0
+ 12e:	20000297          	auipc	t0,0x20000
+ 132:	ed228293          	addi	t0,t0,-302 # 20000000 <_highcode_vma_start>
+ 136:	0032e293          	ori	t0,t0,3
+ 13a:	30529073          	csrw	mtvec,t0
+ 13e:	00000297          	auipc	t0,0x0
+ 142:	01028293          	addi	t0,t0,16 # 14e <main>
+ 146:	34129073          	csrw	mepc,t0
+ 14a:	30200073          	mret
