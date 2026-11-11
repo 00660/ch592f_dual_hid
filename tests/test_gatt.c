@@ -132,7 +132,7 @@ int main(int argc, char **argv)
     assert(length == 7 && out[0] == 1 && out[1] == 0xD7 && out[2] == 7);
     assert(read_attribute(0,&battery_attributes[2],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 1 && out[0] == 100);
-    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
+    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == 0x80+RESULT_NOT_READY);
     assert(write_attribute(0,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
     assert(ota_calls == 0);
     for (i = 0; i < HID_INPUT_COUNT; ++i) {
@@ -142,6 +142,11 @@ int main(int argc, char **argv)
         assert(length == 2 && out[0] == i+1 && out[1] == 1);
     }
     assert(services_ready() == (HID_HAS_TOUCH ? 7 : 3));
+    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == SUCCESS);
+    services_send();
+    assert(notification_connection == 0 && notification_length == 8 &&
+           !memcmp(notification_bytes,key+1,8));
+    notification_count = 0;
     assert(read_attribute(7,&controller_attributes[4],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 20 && out[17] == !HID_HAS_TOUCH && out[18] == (HID_HAS_TOUCH ? 7 : 3));
     assert(read_attribute(7,&hid_attributes[6],out,&length,0,64,ATT_READ_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
@@ -207,6 +212,17 @@ int main(int argc, char **argv)
     assert(read_attribute(0,&hid_attributes[LED_VALUE],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 1 && out[0] == 1);
     assert(write_attribute(7,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == SUCCESS && ota_calls == 1);
+    assert(read_attribute(0,&controller_attributes[8],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
+    assert(length == 20 && out[0] == 1 && out[10] == MACRO_MAX_STEPS && out[12] == MACRO_STEP_SIZE);
+    assert(read_attribute(0,&controller_attributes[6],out,&length,0,64,ATT_READ_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
+    assert(write_attribute(99,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
+    app_router.macro_state = MACRO_RUNNING;
+    ota[0] = OTA_BEGIN;
+    assert(write_attribute(7,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == SUCCESS && ota_calls == 2);
+    assert(app_router.macro_state == MACRO_READY);
+    while (app_router.count) services_send();
+    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == SUCCESS);
+    services_send();
     encrypted = 0;
     assert(services_ready() == 0);
     assert(write_attribute(7,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == 0x80+RESULT_NOT_READY);

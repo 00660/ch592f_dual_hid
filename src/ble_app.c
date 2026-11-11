@@ -162,9 +162,14 @@ static tmosEvents process(tmosTaskID id, tmosEvents events)
     }
     if (events & TICK_EVENT) {
         uint8_t active = app_ota.state != OTA_IDLE && app_ota.state != OTA_FAILED;
-        if (active && !ota_was_active) router_release(&app_router);
+        if (active && !ota_was_active) {
+            router_macro_stop(&app_router);
+            router_release(&app_router);
+        }
         ota_was_active = active;
         services_send();
+        if (app_ota.state == OTA_IDLE || app_ota.state == OTA_FAILED)
+            router_macro_tick(&app_router,services_ready(),HID_SEND_PERIOD_MS);
         serial_tick(HID_SEND_PERIOD_MS);
         if (++ota_divider >= 2) {
             ota_divider = 0;

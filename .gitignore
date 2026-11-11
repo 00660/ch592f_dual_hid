@@ -4,3 +4,6 @@ dist/
 vendor/
 __pycache__/
 *.pyc
+android/.gradle/
+android/local.properties
+android/.idea/

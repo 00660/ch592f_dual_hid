@@ -10,6 +10,7 @@ const uint8_t control_service_uuid[16] = {UUID_BYTES(1)};
 static const uint8_t command_uuid[16] = {UUID_BYTES(2)};
 static const uint8_t status_uuid[16] = {UUID_BYTES(3)};
 static const uint8_t ota_uuid[16] = {UUID_BYTES(4)};
+static const uint8_t macro_status_uuid[16] = {UUID_BYTES(5)};
 static const uint8_t hid_uuid[] = {0x12,0x18};
 static const uint8_t info_uuid[] = {0x4A,0x2A};
 static const uint8_t control_uuid[] = {0x4C,0x2A};
@@ -95,7 +96,8 @@ static gattAttribute_t controller_attributes[] = {
     PRIMARY(controller_service),
     DECL(prop_write), ATTR(command_uuid,EW,&placeholder),
     DECL(prop_read), ATTR(status_uuid,GATT_PERMIT_READ,&placeholder),
-    DECL(prop_read_write), ATTR(ota_uuid,ER|EW,&placeholder)
+    DECL(prop_read_write), ATTR(ota_uuid,ER|EW,&placeholder),
+    DECL(prop_read), ATTR(macro_status_uuid,ER,&placeholder)
 };
 static gattAttribute_t device_attributes[] = {
     PRIMARY(device_service),
@@ -150,6 +152,7 @@ static void read_status(uint16_t handle, uint8_t out[20])
     out[16] = app_ota.state;
     out[17] = HID_HAS_TOUCH ? 0 : 1;
     out[18] = HID_HAS_TOUCH ? 7 : 3;
+    out[19] = app_router.macro_state;
 }
 
 static bStatus_t read_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t *out,
@@ -162,6 +165,23 @@ static bStatus_t read_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t 
     *length = 0;
     if (attr == &controller_attributes[4]) {
         read_status(handle, status);
+        return copy_value(out,length,offset,maximum,status,sizeof(status));
+    }
+    if (attr == &controller_attributes[8]) {
+        if (!router_role(&app_router,handle)) return ATT_ERR_INSUFFICIENT_AUTHOR;
+        memset(status,0,sizeof(status));
+        status[0] = 1;
+        status[1] = app_router.macro_state;
+        status[2] = app_router.macro_result;
+        status[3] = app_router.macro_index;
+        status[4] = app_router.macro_steps;
+        status[5] = app_router.macro_received;
+        status[6] = (uint8_t)app_router.macro_loops;
+        status[7] = (uint8_t)(app_router.macro_loops >> 8);
+        status[8] = (uint8_t)app_router.macro_delay;
+        status[9] = (uint8_t)(app_router.macro_delay >> 8);
+        status[10] = MACRO_MAX_STEPS;
+        status[12] = MACRO_STEP_SIZE;
         return copy_value(out,length,offset,maximum,status,sizeof(status));
     }
     if (attr == &controller_attributes[6]) {
@@ -215,14 +235,21 @@ static bStatus_t write_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t
     if (offset) return ATT_ERR_INVALID_OFFSET;
     if (method == ATT_PREPARE_WRITE_REQ) return ATT_ERR_ATTR_NOT_LONG;
     if (attr == &controller_attributes[2] || attr == &controller_attributes[6]) {
-        if (router_role(&app_router, handle) != ROLE_CONTROLLER) return ATT_ERR_INSUFFICIENT_AUTHOR;
         if (attr == &controller_attributes[2]) {
+            if (router_role(&app_router, handle) != ROLE_CONTROLLER &&
+                router_role(&app_router, handle) != ROLE_HID)
+                return ATT_ERR_INSUFFICIENT_AUTHOR;
             status = app_ota.state != OTA_IDLE && app_ota.state != OTA_FAILED
                 ? RESULT_BUSY : router_command(&app_router,handle,services_ready(),p,size);
             last_result = status;
         } else {
+            if (router_role(&app_router, handle) != ROLE_CONTROLLER)
+                return ATT_ERR_INSUFFICIENT_AUTHOR;
             status = ota_command(&app_ota,handle,p,size);
-            if (status == RESULT_OK && size && p[0] == OTA_BEGIN) router_release(&app_router);
+            if (status == RESULT_OK && size && p[0] == OTA_BEGIN) {
+                router_macro_stop(&app_router);
+                router_release(&app_router);
+            }
         }
         return status == RESULT_OK ? SUCCESS : 0x80u + status;
     }
@@ -238,6 +265,7 @@ static bStatus_t write_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t
     if (attr->pValue == &control_point) {
         if (size != 1 || p[0] > 1) return ATT_ERR_INVALID_VALUE_SIZE;
         control_point = p[0];
+        if (!control_point) router_macro_stop(&app_router);
         router_release(&app_router);
         return SUCCESS;
     }

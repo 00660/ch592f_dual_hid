@@ -126,7 +126,10 @@ static void test_roles_and_reports(void)
     assert(router_connect(&r,17) == ROLE_CONTROLLER);
     assert(router_connect(&r,22) == ROLE_NONE);
     assert(router_connect(&r,17) == ROLE_CONTROLLER);
-    assert(router_command(&r,0,7,keyboard,sizeof(keyboard)) == RESULT_ROLE);
+    assert(router_command(&r,0,7,keyboard,sizeof(keyboard)) == RESULT_OK);
+    assert(router_peek(&r)->id == CMD_KEYBOARD);
+    router_pop(&r);
+    assert(router_command(&r,22,7,keyboard,sizeof(keyboard)) == RESULT_ROLE);
     assert(router_command(&r,17,0,keyboard,sizeof(keyboard)) == RESULT_NOT_READY);
     assert(router_command(&r,17,7,keyboard,sizeof(keyboard)-1) == RESULT_LENGTH);
     assert(router_command(&r,17,7,keyboard,sizeof(keyboard)) == RESULT_OK);
@@ -180,6 +183,104 @@ static void test_roles_and_reports(void)
     puts("PASS roles, native touch, disconnect release and queue pressure");
 }
 
+static void test_macro(void)
+{
+    router_t r;
+    uint8_t records[2 * MACRO_STEP_SIZE] = {
+        10,0,CMD_TOUCH,1,0,0x00,0x20,0x00,0x40,1,0,
+        0,0,CMD_TOUCH,0,0,0x00,0x20,0x00,0x40,1,0
+    };
+    uint8_t begin[6] = {CMD_MACRO_BEGIN,2,0,0,0,0};
+    uint8_t data[MACRO_STEP_SIZE + 3] = {CMD_MACRO_DATA,0,0};
+    const uint8_t commit[] = {CMD_MACRO_COMMIT};
+    const uint8_t start[] = {CMD_MACRO_START,2,0};
+    const uint8_t stop[] = {CMD_MACRO_STOP};
+    const uint8_t pause[] = {CMD_MACRO_PAUSE}, resume[] = {CMD_MACRO_RESUME};
+    const uint8_t delayed[] = {CMD_MACRO_START,1,0,100,0};
+    unsigned i, guard, touches;
+
+    router_init(&r);
+    router_connect(&r,4);
+    router_connect(&r,9);
+    store_le32(begin + 2,crc32(records,sizeof(records)));
+    assert(router_command(&r,4,7,begin,sizeof(begin)) == RESULT_OK);
+    assert(router_command(&r,9,7,begin,sizeof(begin)) == RESULT_BUSY);
+    assert(router_command(&r,9,7,commit,sizeof(commit)) == RESULT_STATE);
+    store_le32(begin + 2,crc32(records,sizeof(records)) + 1);
+    assert(router_command(&r,4,7,begin,sizeof(begin)) == RESULT_OK);
+    for (i = 0; i < 2; ++i) {
+        data[1] = (uint8_t)(i * MACRO_STEP_SIZE);
+        memcpy(data + 3,records + i * MACRO_STEP_SIZE,MACRO_STEP_SIZE);
+        assert(router_command(&r,4,7,data,sizeof(data)) == RESULT_OK);
+        assert(router_command(&r,9,7,data,sizeof(data)) == RESULT_BUSY);
+        assert(router_command(&r,4,7,data,sizeof(data)) == RESULT_OK);
+        assert(r.macro_received == i + 1);
+        data[3] ^= 1;
+        assert(router_command(&r,4,7,data,sizeof(data)) == RESULT_OFFSET);
+        data[3] ^= 1;
+    }
+    assert(router_command(&r,4,7,commit,sizeof(commit)) == RESULT_CRC);
+    store_le32(begin + 2,crc32(records,sizeof(records)));
+    assert(router_command(&r,4,7,begin,sizeof(begin)) == RESULT_OK);
+    for (i = 0; i < 2; ++i) {
+        data[1] = (uint8_t)(i * MACRO_STEP_SIZE);
+        memcpy(data + 3,records + i * MACRO_STEP_SIZE,MACRO_STEP_SIZE);
+        assert(router_command(&r,4,7,data,sizeof(data)) == RESULT_OK);
+    }
+    assert(router_command(&r,4,7,commit,sizeof(commit)) == RESULT_OK);
+    assert(router_command(&r,4,3,start,sizeof(start)) == RESULT_NOT_READY);
+    assert(router_command(&r,4,7,delayed,sizeof(delayed)) == RESULT_OK);
+    router_macro_tick(&r,7,50);
+    assert(!r.count && r.macro_delay == 50);
+    assert(router_command(&r,4,7,pause,sizeof(pause)) == RESULT_OK);
+    router_macro_tick(&r,7,5);
+    assert(r.macro_state == MACRO_PAUSED && r.macro_delay == 50);
+    router_macro_tick(&r,7,100);
+    assert(!r.count && r.macro_delay == 50);
+    assert(router_command(&r,4,7,resume,sizeof(resume)) == RESULT_OK);
+    router_macro_tick(&r,7,50);
+    assert(r.count == 1 && router_peek(&r)->data[0] == 1);
+    router_sent(&r);
+    assert(router_command(&r,4,7,pause,sizeof(pause)) == RESULT_OK);
+    for (guard = 0; guard < 10 && r.macro_state != MACRO_PAUSED; ++guard) {
+        router_macro_tick(&r,7,5);
+        if (r.count) router_sent(&r);
+    }
+    assert(r.macro_state == MACRO_PAUSED && !r.touch_sent[0] && !r.count);
+    assert(router_command(&r,4,7,stop,sizeof(stop)) == RESULT_OK);
+    while (router_peek(&r)) router_sent(&r);
+    assert(router_command(&r,4,7,start,sizeof(start)) == RESULT_OK);
+    router_disconnect(&r,9);
+    assert(r.macro_state == MACRO_RUNNING);
+    touches = 0;
+    for (guard = 0; r.macro_state == MACRO_RUNNING && guard < 100; ++guard) {
+        router_macro_tick(&r,7,5);
+        if (router_peek(&r)) {
+            if (router_peek(&r)->id == CMD_TOUCH) ++touches;
+            router_sent(&r);
+        }
+    }
+    assert(r.macro_state == MACRO_READY && touches == 4);
+    while (router_peek(&r)) router_sent(&r);
+    assert(router_command(&r,4,7,start,sizeof(start)) == RESULT_OK);
+    router_macro_tick(&r,7,5);
+    assert(router_peek(&r)->id == CMD_TOUCH && router_peek(&r)->data[0] == 1);
+    router_sent(&r);
+    assert(router_command(&r,4,7,stop,sizeof(stop)) == RESULT_OK);
+    assert(r.macro_state == MACRO_READY && r.touch_sent[0] == 1);
+    while (router_peek(&r)) router_sent(&r);
+    assert(!r.touch_sent[0] && !r.count);
+    assert(router_command(&r,4,7,start,sizeof(start)) == RESULT_OK);
+    router_macro_tick(&r,7,5);
+    for (guard = 0; guard < 1001 && r.macro_state == MACRO_RUNNING; ++guard)
+        router_macro_tick(&r,7,5);
+    assert(r.macro_state == MACRO_READY && r.macro_result == RESULT_BUSY);
+    while (router_peek(&r)) router_sent(&r);
+    router_disconnect(&r,4);
+    assert(r.macro_state == MACRO_EMPTY);
+    puts("PASS macro ownership, retransmit, CRC, delay, pause/release, repeat, disconnect and stall");
+}
+
 static void test_removed_ios_touch_mode(void)
 {
     router_t r;
@@ -187,7 +288,7 @@ static void test_removed_ios_touch_mode(void)
     router_init(&r);
     router_connect(&r,1);
     router_connect(&r,2);
-    assert(router_command(&r,1,7,mode,2) == RESULT_ROLE);
+    assert(router_command(&r,1,7,mode,2) == RESULT_VALUE);
     assert(router_command(&r,2,7,mode,2) == RESULT_VALUE);
     assert(!r.count);
     puts("PASS removed iOS touch conversion is rejected");
@@ -304,6 +405,7 @@ static void test_wire(void)
 int main(void)
 {
     test_roles_and_reports();
+    test_macro();
     test_removed_ios_touch_mode();
     test_ota();
     test_power_loss();
