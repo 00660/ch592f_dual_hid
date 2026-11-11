@@ -20,7 +20,9 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="HID 宏工作台"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".MacroService" android:exported="false" android:foregroundServiceType="connectedDevice" />

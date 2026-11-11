@@ -16,7 +16,7 @@ public final class MacroService extends Service {
     private final Handler main = new Handler(Looper.getMainLooper());
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private BleLink link;
-    public volatile String message = "先在系统蓝牙设置中配对 CH592F-3IN1";
+    public volatile String message = "请选择要使用的板卡";
     public volatile boolean busy, connected;
     public volatile byte[] state, macroState;
     public Listener listener;
@@ -83,19 +83,38 @@ public final class MacroService extends Service {
         return true;
     }
     public void connect(String address) {
-        connect("CH592F-3IN1",address);
+        connect(null,address);
     }
+    @android.annotation.SuppressLint("MissingPermission")
+    public void restoreConnection() {
+        if(destroyed||connected||busy||stopping||running()||isRecording()||boardAddress.isEmpty())return;
+        if(Build.VERSION.SDK_INT>=31 && checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT)!=android.content.pm.PackageManager.PERMISSION_GRANTED){
+            connectionState="需要授权";message="请允许附近设备权限后连接板卡";changed();return;
+        }
+        BluetoothManager manager=getSystemService(BluetoothManager.class);
+        android.bluetooth.BluetoothAdapter adapter=manager==null?null:manager.getAdapter();
+        if(adapter==null||!adapter.isEnabled()){
+            connectionState="蓝牙未开启";message="请开启本机蓝牙后连接板卡";changed();return;
+        }
+        connect(boardName,boardAddress);
+    }
+    @android.annotation.SuppressLint("MissingPermission")
     public void connect(String name, String address) {
         if(busy||running()||isRecording()){message="请先停止当前任务再切换板卡";changed();return;}
-        boardName=name==null?"CH592F-3IN1":name;boardAddress=address;connectionState="连接中";
+        connected=false;
+        boardName=name==null||name.isEmpty()?"未命名板卡":name;boardAddress=address;connectionState="连接中";
         getSharedPreferences("device",MODE_PRIVATE).edit().putString("name",boardName).putString("address",address).apply();
-        state=macroState=null;changed();
+        state=macroState=null;
         job("正在连接本机板卡…",() -> {
-            connected = false;
             try {
-                link.connect(this,getSystemService(BluetoothManager.class).getAdapter().getRemoteDevice(address));
+                android.bluetooth.BluetoothDevice device=getSystemService(BluetoothManager.class).getAdapter().getRemoteDevice(address);
+                link.connect(this,device);
+                String actualName=device.getName();
+                if(actualName!=null&&!actualName.isEmpty()){
+                    boardName=actualName;getSharedPreferences("device",MODE_PRIVATE).edit().putString("name",actualName).apply();
+                }
                 state = link.status(); macroState = link.macroStatus(); connected = true;connectionState="已连接";
-            } catch(Exception error){connectionState="连接失败";throw error;}
+            } catch(Exception error){link.close();state=macroState=null;connectionState="连接失败";throw error;}
             message = (state[4] & 4) != 0 ? "本机触摸已就绪" : "已连接，等待系统启用 HID 触摸";
         });
     }
@@ -184,7 +203,7 @@ public final class MacroService extends Service {
         try{java.util.List<Macro> macros=MacroStore.load(this);macros.set(selectedIndex,selectedMacro);MacroStore.save(this,macros);changed();}
         catch(Exception error){message=error.getMessage();changed();}
     }
-    public void showToolbar(){if(toolbar==null)toolbar=new FloatingToolbar(this);toolbar.show();}
+    public boolean showToolbar(){if(toolbar==null)toolbar=new FloatingToolbar(this);return toolbar.show();}
     public void raiseToolbar(){if(toolbar!=null)toolbar.raise();}
     public void finishRecording(){if(recorder!=null)recorder.close();changed();}
     public void recordingClosed(RecorderOverlay source,Macro macro){

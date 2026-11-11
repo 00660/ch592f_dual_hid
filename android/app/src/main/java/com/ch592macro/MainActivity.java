@@ -22,13 +22,13 @@ public final class MainActivity extends Activity {
     private List<Macro> macros = new ArrayList<>();
     private int selected;
     private LinearLayout content, steps;
-    private TextView board, connection, progress, capacity;
+    private TextView boardTitle, board, connection, progress, capacity;
     private Button toolbarButton;
     private Spinner library;
     private boolean loading;
     private boolean bound;
     private final ServiceConnection binding = new ServiceConnection() {
-        @Override public void onServiceConnected(ComponentName name, IBinder binder) { service=((MacroService.LocalBinder)binder).service(); service.listener=MainActivity.this::refreshStatus; if(!service.running()&&!service.isRecording())service.selectMacro(current(),selected);refreshStatus(); }
+        @Override public void onServiceConnected(ComponentName name, IBinder binder) { service=((MacroService.LocalBinder)binder).service(); service.listener=MainActivity.this::refreshStatus; if(!service.running()&&!service.isRecording())service.selectMacro(current(),selected);service.restoreConnection();refreshStatus(); }
         @Override public void onServiceDisconnected(ComponentName name) { service=null; refreshStatus(); }
     };
     @Override public void onCreate(Bundle state) {
@@ -44,7 +44,7 @@ public final class MainActivity extends Activity {
             return false;
         }
     }
-    @Override protected void onResume() { super.onResume(); if(content!=null && reload()) { refreshLibrary(); refreshSteps(); } }
+    @Override protected void onResume() { super.onResume(); if(content!=null && reload()) { refreshLibrary(); refreshSteps(); } if(service!=null)service.restoreConnection(); }
     @Override protected void onDestroy() {
         main.removeCallbacksAndMessages(null);
         if(service!=null) service.listener=null;
@@ -72,10 +72,10 @@ public final class MainActivity extends Activity {
         setContentView(scroll);
         TextView heading=text("HID 宏工作台",28,INK); heading.setTypeface(null,Typeface.BOLD); content.addView(heading);
         content.addView(text("录制、编辑与回放通用手机操作",15,MUTED));
-        LinearLayout device=card("本机板卡");board=text("",16,INK);device.addView(board);
+        LinearLayout device=card("板卡设备");boardTitle=(TextView)device.getChildAt(0);board=text("",16,INK);device.addView(board);
         connection=text("先配对系统蓝牙，再连接控制服务",14,MUTED); device.addView(connection);
         SharedPreferences chosen=getSharedPreferences("device",0);
-        board.setText(chosen.getString("address","").isEmpty()?"尚未选择板卡":chosen.getString("name","CH592F-3IN1")+"\n"+chosen.getString("address",""));
+        board.setText(chosen.getString("address","").isEmpty()?"尚未选择板卡":chosen.getString("name","未命名板卡")+"\n"+chosen.getString("address",""));
         LinearLayout connectRow=row(); rowButton(connectRow,"选择板卡",this::chooseDevice); rowButton(connectRow,"系统蓝牙",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS))); device.addView(connectRow);
 
         LinearLayout macro=card("动作宏"); library=new Spinner(this); macro.addView(library); refreshLibrary();
@@ -119,11 +119,10 @@ public final class MainActivity extends Activity {
     }
     private void refreshStatus() {
         if(connection==null || service==null)return;
+        boardTitle.setText(service.connected?"正在使用的板卡":service.boardAddress.isEmpty()?"板卡设备":"已选择的板卡");
         board.setText(service.boardAddress.isEmpty()?"尚未选择板卡":service.boardName+"\n"+service.boardAddress);
         connection.setText(service.connectionState+" · "+service.message);
         byte[] m=service.macroState,s=service.state; int state=m==null?0:m[1]&255;
-        boolean active=state>=3;
-        toolbarButton.setEnabled(service.connected&&!service.busy);
         String[] names={"板卡无宏","上传中","就绪","回放中","已暂停","手势结束后暂停"};
         progress.setText(m==null?"尚未连接":(state<names.length?names[state]:"未知状态")+" · 输入 "+(m[3]&255)+" / "+(m[4]&255)+"\n剩余循环 "+(MacroCodec.u16(m,6)==0?"持续":MacroCodec.u16(m,6))+(s!=null&&s[1]==1?" · 本机控制":""));
     }
@@ -190,9 +189,12 @@ public final class MainActivity extends Activity {
         new AlertDialog.Builder(this).setTitle("录入手势").setView(f).setPositiveButton("完成",null).show();
     }
     private void openToolbar() {
+        if(service==null){toast("正在准备板卡服务，请稍候");return;}
+        if(!permissions())return;
+        if(service.boardAddress.isEmpty()){toast("请先选择要使用的板卡");chooseDevice();return;}
         if(!Settings.canDrawOverlays(this)){startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:"+getPackageName())));toast("授权后返回，重新开启悬浮工具条");return;}
-        if(service==null)return;
-        save();foreground();service.showToolbar();moveTaskToBack(true);
+        service.restoreConnection();save();foreground();
+        if(service.showToolbar())moveTaskToBack(true);
     }
     private boolean permissions() {
         List<String> needed=new ArrayList<>();
@@ -204,7 +206,7 @@ public final class MainActivity extends Activity {
     }
     @Override public void onRequestPermissionsResult(int request,String[] permissions,int[] results) {
         super.onRequestPermissionsResult(request,permissions,results);
-        if(request==91)toast("权限已处理，请点击选择板卡；蓝牙权限为必需权限");
+        if(request==91){if(service!=null)service.restoreConnection();toast("权限已处理，可连接已选板卡或选择其他板卡");}
         if(request==92 && (results.length==0 || results[0]!=PackageManager.PERMISSION_GRANTED))toast("通知未开启，回放时请返回应用点击停止");
     }
     @SuppressLint("MissingPermission") private void chooseDevice() {
@@ -223,12 +225,16 @@ public final class MainActivity extends Activity {
         android.bluetooth.le.ScanCallback callback=new android.bluetooth.le.ScanCallback(){
             @Override public void onScanResult(int type,android.bluetooth.le.ScanResult result){runOnUiThread(()->{
                 BluetoothDevice device=result.getDevice();String name=result.getScanRecord()==null?device.getName():result.getScanRecord().getDeviceName();
-                if(name==null||!name.startsWith("CH592F")||devices.contains(device))return;
-                devices.add(device);items.add(name+"\n"+device.getAddress()+" · 请先系统配对");
+                if(devices.contains(device))return;
+                if(name==null||name.isEmpty())name="未命名蓝牙设备";
+                devices.add(device);items.add(name+"\n"+device.getAddress()+(device.getBondState()==BluetoothDevice.BOND_BONDED?"":" · 请先系统配对"));
             });}
             @Override public void onScanFailed(int code){runOnUiThread(()->toast("扫描失败："+code));}
         };
-        dialog.setOnShowListener(d->dialog.getButton(-3).setOnClickListener(v->{if(scanner!=null){scanner.startScan(callback);dialog.getButton(-3).setEnabled(false);main.postDelayed(()->{scanner.stopScan(callback);if(dialog.isShowing())dialog.getButton(-3).setEnabled(true);},8000);}}));
+        List<android.bluetooth.le.ScanFilter> filters=Arrays.asList(
+                new android.bluetooth.le.ScanFilter.Builder().setServiceUuid(new ParcelUuid(BleLink.SERVICE)).build(),
+                new android.bluetooth.le.ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString("00001812-0000-1000-8000-00805f9b34fb")).build());
+        dialog.setOnShowListener(d->dialog.getButton(-3).setOnClickListener(v->{if(scanner!=null){scanner.startScan(filters,new android.bluetooth.le.ScanSettings.Builder().build(),callback);dialog.getButton(-3).setEnabled(false);main.postDelayed(()->{scanner.stopScan(callback);if(dialog.isShowing())dialog.getButton(-3).setEnabled(true);},8000);}}));
         dialog.setOnDismissListener(d->{if(scanner!=null)scanner.stopScan(callback);});dialog.show();
     }
 }

@@ -48,7 +48,7 @@ public final class FloatingToolbar {
         });
     }
     private android.util.DisplayMetrics metrics(){android.util.DisplayMetrics m=new android.util.DisplayMetrics();windows.getDefaultDisplay().getRealMetrics(m);return m;}
-    public void show(){render();}
+    public boolean show(){render();return attached;}
     private void render(){
         detach();root=new LinearLayout(service);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(6),dp(6),dp(6),dp(6));
         GradientDrawable bg=new GradientDrawable();bg.setColor(0xfff5faf7);bg.setCornerRadius(dp(14));bg.setStroke(dp(1),0xffb6cdc2);root.setBackground(bg);
