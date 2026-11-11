@@ -30,16 +30,22 @@ public class MainActivityTest {
             assertNotNull("Active board address is missing",ui.findObject(By.textContains(address)));
             if(name!=null&&!name.isEmpty())assertNotNull("Active board name was not refreshed",ui.findObject(By.textContains(name)));
             assertNotNull("Active connection is not shown",ui.findObject(By.textStartsWith("已连接")));
+            assertTrue(ui.takeScreenshot(new java.io.File(context.getExternalFilesDir(null),"active-board.png")));
             UiScrollable content=new UiScrollable(new UiSelector().scrollable(true));
             assertTrue("Toolbar button was not reachable",content.scrollTextIntoView("开启悬浮工具条"));
+            ui.waitForIdle();
             UiObject2 open=ui.findObject(By.text("开启悬浮工具条"));
             assertNotNull(open);assertTrue("Toolbar button is disabled",open.isEnabled());open.click();
-            assertTrue("Toolbar did not open from the main screen",ui.wait(Until.hasObject(By.text("录制")),5000));
+            assertTrue("Toolbar did not open from the main screen",ui.wait(Until.hasObject(By.text("录制")),10000));
             assertTrue("Recording is unavailable after reconnect",ui.findObject(By.text("录制")).isEnabled());
             assertTrue("Playback is unavailable after reconnect",ui.findObject(By.text("播放")).isEnabled());
+            assertTrue(ui.takeScreenshot(new java.io.File(context.getExternalFilesDir(null),"toolbar-open.png")));
             ui.findObject(By.text("关闭")).click();
             assertTrue("Toolbar did not close",ui.wait(Until.gone(By.text("录制")),5000));
             android.util.Log.i("HIDMacroAcceptance","MAIN_RECONNECT_ACTIVE_BOARD_TOOLBAR_PASS");
+        } catch(AssertionError error) {
+            ui.takeScreenshot(new java.io.File(context.getExternalFilesDir(null),"main-screen-failure.png"));
+            throw error;
         } finally {
             context.stopService(new Intent(context,MacroService.class));
             instrumentation.getUiAutomation().dropShellPermissionIdentity();

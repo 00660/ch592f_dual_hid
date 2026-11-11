@@ -10,7 +10,9 @@ public final class RecorderOverlay {
     private final WindowManager windows;
     private final Macro macro = new Macro();
     private GesturePad pad;
-    private boolean attached, closed;
+    private WindowManager.LayoutParams layout;
+    private boolean attached, closed, capturing;
+    private int gestures;
     private long lastFinished;
     public RecorderOverlay(MacroService service) {
         this.service = service; windows = service.getSystemService(WindowManager.class);
@@ -29,13 +31,25 @@ public final class RecorderOverlay {
     private void attach() {
         if (closed || attached) return;
         if (service.getResources().getConfiguration().orientation != macro.orientation) { fail("屏幕方向已改变，已保存当前录制"); return; }
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(-1,-1,WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+        layout = new WindowManager.LayoutParams(-1,-1,WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.TOP | Gravity.START;
-        try { windows.addView(pad,params); attached = true; service.raiseToolbar(); }
+        layout.gravity = Gravity.TOP | Gravity.START;
+        try { windows.addView(pad,layout); attached = capturing = true; service.raiseToolbar(); }
         catch (Exception e) { fail("悬浮窗不可用，请在系统设置中允许显示在其他应用上层"); }
     }
-    private void detach() { if (attached) { windows.removeView(pad); attached = false; } }
+    private void detach() { capturing = false; if (attached) { windows.removeView(pad); attached = false; } }
+    private void capture(boolean enabled) {
+        if(closed||!attached)return;
+        if(service.getResources().getConfiguration().orientation!=macro.orientation){fail("屏幕方向已改变，已保存当前录制");return;}
+        capturing=enabled;pad.clearGesture();
+        // A transparent, non-touchable overlay lets the board's HID input reach the target app.
+        layout.alpha=enabled?1f:0f;
+        if(enabled)layout.flags&=~WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        else layout.flags|=WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        windows.updateViewLayout(pad,layout);
+    }
+    public boolean ready(){return capturing&&!closed;}
+    public int gestureCount(){return gestures;}
     private void gesture(Macro.Step step) {
         if (closed) return;
         if (service.busy) { Toast.makeText(service,"上一动作尚未完成，请稍后录入",Toast.LENGTH_SHORT).show(); return; }
@@ -48,13 +62,14 @@ public final class RecorderOverlay {
             for (int i=0;i<additions;i++) macro.steps.remove(macro.steps.size()-1);
             Toast.makeText(service,e.getMessage()+"，可完成录制保存已有动作",Toast.LENGTH_LONG).show(); return;
         }
-        Macro preview = new Macro(); preview.repeats = 1; preview.startDelay = 250;
+        gestures++;
+        Macro preview = new Macro(); preview.repeats = 1; preview.startDelay = 0;
         preview.orientation = macro.orientation; preview.steps.add(step);
-        detach();
+        capture(false);
         service.play(preview,() -> {
             if (closed) return;
             lastFinished = SystemClock.elapsedRealtime();
-            service.message="已录制 " + macro.steps.size() + " 步 · 继续操作或完成录制"; attach();
+            service.message="已录制 " + gestures + " 步 · 继续操作或完成录制"; capture(true);
         });
     }
     public void fail(String message) { Toast.makeText(service,message,Toast.LENGTH_LONG).show(); close(); }

@@ -132,7 +132,7 @@ public final class MacroService extends Service {
         if (getResources().getConfiguration().orientation != macro.orientation) {
             message = "屏幕方向与录制时不同，请旋转后播放"; changed(); if (finished != null) finished.run(); return;
         }
-        if(toolbar!=null&&!toolbar.preparePlayback(macro)){message="工具条与手势区域冲突，请调整";changed();if(finished!=null)finished.run();return;}
+        if(toolbar!=null&&!isRecording()&&!toolbar.preparePlayback(macro)){message="工具条与手势区域冲突，请调整";changed();if(finished!=null)finished.run();return;}
         final int request = generation;
         final byte[] start=MacroCodec.start(macro);
         previewFinished = finished; previewSeen = false;
@@ -172,7 +172,7 @@ public final class MacroService extends Service {
             message = resume ? "板卡正在回放" : "已请求暂停";
         });
     }
-    private void finishPreview() { if(toolbar!=null)toolbar.restore();Runnable action = previewFinished; previewFinished = null; if (action != null) action.run(); }
+    private void finishPreview() { if(toolbar!=null&&!isRecording())toolbar.restore();Runnable action = previewFinished; previewFinished = null; if (action != null) action.run();changed(); }
     private final Runnable poll = new Runnable() {
         @Override public void run() {
             if (connected && !busy && !polling) {
@@ -187,17 +187,22 @@ public final class MacroService extends Service {
                     finally { main.post(() -> { polling = false; changed(); }); }
                 });
             }
-            main.postDelayed(this,1000);
+            main.postDelayed(this,isRecording()?80:1000);
         }
     };
     public void record() {
         if (!connected || busy || macroState == null || macroState[1] >= 3) { message = "请先连接板卡并停止回放"; changed(); return; }
         if (recorder != null) recorder.close();
-        recorder = new RecorderOverlay(this); recorder.show();
-        message="录制中，松手后执行；完成后在工具条保存";changed();
+        recorder = new RecorderOverlay(this);
+        if(toolbar!=null)toolbar.beginRecording();
+        recorder.show();
+        if(recorder!=null)message="录制中，可连续操作，结束时点完成录制";
+        main.removeCallbacks(poll);main.post(poll);changed();
     }
     public boolean running(){return macroState!=null&&macroState[1]>=3;}
     public boolean isRecording(){return recorder!=null;}
+    public boolean recordingReady(){return recorder!=null&&recorder.ready();}
+    public int recordedGestures(){return recorder==null?0:recorder.gestureCount();}
     public void selectMacro(Macro macro,int index){selectedMacro=macro;selectedIndex=index;getSharedPreferences("macros",0).edit().putInt("selected",index).apply();changed();}
     public void saveSelectedMacro(){
         try{java.util.List<Macro> macros=MacroStore.load(this);macros.set(selectedIndex,selectedMacro);MacroStore.save(this,macros);changed();}
@@ -205,9 +210,10 @@ public final class MacroService extends Service {
     }
     public boolean showToolbar(){if(toolbar==null)toolbar=new FloatingToolbar(this);return toolbar.show();}
     public void raiseToolbar(){if(toolbar!=null)toolbar.raise();}
-    public void finishRecording(){if(recorder!=null)recorder.close();changed();}
+    public void finishRecording(){if(recorder==null)return;if(busy||previewSeen||running())stopMacro();else recorder.close();changed();}
     public void recordingClosed(RecorderOverlay source,Macro macro){
         if(recorder!=source)return;recorder=null;
+        if(toolbar!=null)toolbar.restore();
         if(!macro.steps.isEmpty()){
             try{java.util.List<Macro> macros=MacroStore.load(this);macros.add(macro);MacroStore.save(this,macros);selectMacro(macro,macros.size()-1);message="录制已保存，可直接播放或调整参数";}
             catch(Exception error){message=error.getMessage();}

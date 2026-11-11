@@ -20,6 +20,7 @@ public final class GesturePad extends View {
         setContentDescription("手势录制区域，在此点按或滑动"); setFocusable(true);
     }
     public void fullScreen(int width, int height) { fullScreen = true; screenWidth = width; screenHeight = height; }
+    public void clearGesture() { active=false;path.clear();invalidate(); }
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (!fullScreen) {

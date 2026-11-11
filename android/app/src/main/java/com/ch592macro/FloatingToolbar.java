@@ -14,7 +14,7 @@ public final class FloatingToolbar {
     private LinearLayout root;
     private TextView title, status;
     private Button record, play, stop, settings, select;
-    private boolean attached, compact;
+    private boolean attached, compact, recordingMode;
     private int savedX, savedY;
 
     public FloatingToolbar(MacroService service) {
@@ -49,12 +49,18 @@ public final class FloatingToolbar {
     }
     private android.util.DisplayMetrics metrics(){android.util.DisplayMetrics m=new android.util.DisplayMetrics();windows.getDefaultDisplay().getRealMetrics(m);return m;}
     public boolean show(){render();return attached;}
+    public void beginRecording(){recordingMode=true;compact=false;render();}
     private void render(){
         detach();root=new LinearLayout(service);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(6),dp(6),dp(6),dp(6));
         GradientDrawable bg=new GradientDrawable();bg.setColor(0xfff5faf7);bg.setCornerRadius(dp(14));bg.setStroke(dp(1),0xffb6cdc2);root.setBackground(bg);
-        layout.width=Math.min(metrics().widthPixels-dp(16),dp(compact?180:320));
+        layout.width=Math.min(metrics().widthPixels-dp(16),dp(recordingMode?260:compact?180:320));
         LinearLayout actions=new LinearLayout(service);actions.setOrientation(LinearLayout.HORIZONTAL);
-        if(compact){
+        if(recordingMode){
+            status=new TextView(service);status.setTextSize(13);status.setTextColor(0xff203a32);status.setGravity(Gravity.CENTER_VERTICAL);status.setPadding(dp(6),0,dp(6),0);
+            status.setContentDescription("拖动录制工具条");drag(status);actions.addView(status,new LinearLayout.LayoutParams(0,dp(48),1));
+            record=button("完成录制",service::finishRecording);actions.addView(record,new LinearLayout.LayoutParams(dp(108),dp(48)));root.addView(actions);
+            title=null;play=stop=settings=select=null;
+        }else if(compact){
             Button handle=button("工具",()->{if(!service.running()){compact=false;render();}});handle.setContentDescription("拖动工具条");drag(handle);add(actions,handle);
             play=button("暂停",service::pauseResume);add(actions,play);stop=button("停止",service::stopMacro);add(actions,stop);root.addView(actions);
             title=status=null;record=settings=select=null;
@@ -84,6 +90,11 @@ public final class FloatingToolbar {
     }
     public void refresh(){
         if(!attached)return;
+        if(recordingMode){
+            status.setText("录制中 · "+service.recordedGestures()+" 步\n"+(service.recordingReady()?"继续操作":"正在执行动作…"));
+            record.setEnabled(true);layout.flags|=WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+            windows.updateViewLayout(root,layout);return;
+        }
         int state=service.macroState==null?0:service.macroState[1];boolean running=service.running(), recording=service.isRecording();
         if(title!=null)title.setText("拖动 · "+service.selectedMacro.name);
         if(status!=null)status.setText((recording?"录制中 · ":service.selectedMacro.playbackLabel()+"\n")+service.message);
@@ -110,7 +121,7 @@ public final class FloatingToolbar {
         }
         Toast.makeText(service,"手势覆盖工具条停靠区域，请调整手势或坐标漂移范围",Toast.LENGTH_LONG).show();return false;
     }
-    public void restore(){if(compact){compact=false;layout.x=savedX;layout.y=savedY;render();}else refresh();}
+    public void restore(){if(recordingMode){recordingMode=false;render();}else if(compact){compact=false;layout.x=savedX;layout.y=savedY;render();}else refresh();}
     public void raise(){if(attached){windows.removeView(root);windows.addView(root,layout);}}
     private void detach(){if(attached){windows.removeView(root);attached=false;}}
     public void close(){detach();}

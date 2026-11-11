@@ -51,23 +51,46 @@ public class RecordingFlowTest {
             UiDevice ui=UiDevice.getInstance(instrumentation);
             assertTrue(ui.wait(Until.hasObject(By.text("录制")),5000));ui.findObject(By.text("录制")).click();
             assertTrue(ui.wait(Until.hasObject(By.text("完成录制")),5000));
+            android.graphics.Rect finishBounds=ui.findObject(By.text("完成录制")).getVisibleBounds();
+            assertFalse("Recording must not show the expanded panel",ui.hasObject(By.text("选择宏")));
             int x=ui.getDisplayWidth()/2;
-            // This gesture emulates the user's recording stroke, not HID output.
-            ui.swipe(x,ui.getDisplayHeight()*4/5,x,ui.getDisplayHeight()*3/5,60);
-            await(()->target.get().gestures>=1,15,"No HID replay after recording stroke");
-            assertTrue("Replay must come from the physical board: "+target.get().inputName,target.get().inputName.contains("CH592"));
-            assertTrue(target.get().startY-target.get().endY>200);
-            assertTrue(ui.wait(Until.hasObject(By.textContains("已录制")),8000));
+            for(int index=0;index<3;index++){
+                final int expected=index+1;
+                await(board::recordingReady,8,"Recording did not rearm automatically");
+                // These inputs emulate the user's recording gestures, not the board's HID output.
+                if(index==1)ui.click(x,ui.getDisplayHeight()*7/10);
+                else ui.swipe(x,ui.getDisplayHeight()*(index==0?4:3)/5,x,ui.getDisplayHeight()*(index==0?3:4)/5,60);
+                long deadline=SystemClock.elapsedRealtime()+15000;
+                while((target.get().gestures<expected||!board.recordingReady())&&SystemClock.elapsedRealtime()<deadline){
+                    UiObject2 finish=ui.findObject(By.text("完成录制"));
+                    assertNotNull("Finish recording disappeared during a preview",finish);
+                    assertTrue("Finish recording must remain available",finish.isEnabled());
+                    assertEquals("Recording toolbar moved during a preview",finishBounds,finish.getVisibleBounds());
+                    assertFalse("A preview expanded the toolbar",ui.hasObject(By.text("选择宏")));
+                    SystemClock.sleep(100);
+                }
+                assertEquals("Expected one HID gesture for each recorded action",expected,target.get().gestures);
+                assertTrue("Recording did not resume after preview",board.recordingReady());
+                assertEquals(expected,board.recordedGestures());
+                assertEquals("A partial recording was saved before Finish",before,MacroStore.load(context).size());
+                assertTrue("Replay must come from the physical board: "+target.get().inputName,target.get().inputName.contains("CH592"));
+                if(index==0)assertTrue(target.get().startY-target.get().endY>200);
+                if(index==1)assertTrue(Math.abs(target.get().startY-target.get().endY)<3);
+                if(index==2)assertTrue(target.get().endY-target.get().startY>200);
+            }
+            assertTrue(ui.takeScreenshot(new java.io.File(context.getExternalFilesDir(null),"continuous-recording.png")));
             ui.findObject(By.text("完成录制")).click();
             await(()->MacroStore.load(context).size()==before+1,5,"Recorded macro was not saved");
             Macro recorded=MacroStore.load(context).get(before);
-            assertFalse(recorded.steps.isEmpty());
+            assertEquals(3,recorded.steps.stream().filter(step->!step.wait).count());
+            assertFalse(board.isRecording());
+            assertFalse(ui.hasObject(By.text("完成录制")));
             recorded.repeats=0;recorded.startDelay=300;recorded.loopDelay=800;recorded.jitterX=8;recorded.jitterY=8;
             instrumentation.runOnMainSync(()->{board.selectMacro(recorded,before);board.saveSelectedMacro();});
             try(ActivityScenario<InputTestActivity> replay=ActivityScenario.launch(InputTestActivity.class)) {
                 replay.onActivity(target::set);
                 ui.findObject(By.text("播放")).click();
-                await(()->target.get().gestures>=3,18,"Continuous playback did not repeat");
+                await(()->target.get().gestures>=6,30,"Continuous playback did not repeat the entire recording");
                 assertTrue(target.get().inputName.contains("CH592"));
                 ui.findObject(By.text("暂停")).click();
                 await(()->board.macroState!=null&&board.macroState[1]==4,8,"Pause did not settle");
@@ -79,7 +102,7 @@ public class RecordingFlowTest {
                 SystemClock.sleep(500);int stopped=target.get().gestures;
                 SystemClock.sleep(1800);assertEquals(stopped,target.get().gestures);
             }
-            android.util.Log.i("HIDMacroAcceptance","TOOLBAR_RECORD_LOOP_JITTER_PAUSE_STOP_PASS");
+            android.util.Log.i("HIDMacroAcceptance","CONTINUOUS_RECORD_THREE_ACTIONS_LOOP_JITTER_PAUSE_STOP_PASS");
         } finally {
             if(service!=null){MacroService board=service;instrumentation.runOnMainSync(board::stopMacro);SystemClock.sleep(500);}
             if(attached)context.unbindService(connection);
