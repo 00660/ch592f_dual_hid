@@ -204,7 +204,8 @@ public final class MainActivity extends Activity {
     }
     private boolean permissions() {
         List<String> needed=new ArrayList<>();
-        if(Build.VERSION.SDK_INT>=31){needed.add(Manifest.permission.BLUETOOTH_CONNECT);needed.add(Manifest.permission.BLUETOOTH_SCAN);}else needed.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        if(Build.VERSION.SDK_INT>=31){needed.add(Manifest.permission.BLUETOOTH_CONNECT);needed.add(Manifest.permission.BLUETOOTH_SCAN);}
+        else {needed.add(Manifest.permission.ACCESS_COARSE_LOCATION);needed.add(Manifest.permission.ACCESS_FINE_LOCATION);}
         needed.removeIf(p->checkSelfPermission(p)==PackageManager.PERMISSION_GRANTED);
         if(needed.isEmpty())return true;
         requestPermissions(needed.toArray(new String[0]),91);return false;

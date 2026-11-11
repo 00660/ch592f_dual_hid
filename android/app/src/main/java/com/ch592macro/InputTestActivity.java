@@ -20,8 +20,9 @@ public final class InputTestActivity extends Activity {
     @Override public boolean dispatchTouchEvent(MotionEvent event) {
         if(event.getActionMasked()==MotionEvent.ACTION_DOWN){startX=event.getRawX();startY=event.getRawY();}
         if(event.getActionMasked()==MotionEvent.ACTION_UP){
-            endX=event.getRawX();endY=event.getRawY();gestures++;
+            endX=event.getRawX();endY=event.getRawY();
             InputDevice device=event.getDevice();inputName=device==null?"未知":device.getName();
+            gestures++;
             String value="已收到 "+gestures+" 次手势\n设备："+inputName+"\n起点："+(int)startX+", "+(int)startY+"\n终点："+(int)endX+", "+(int)endY;
             evidence.setText(value);android.util.Log.i("HIDMacroInput",value.replace('\n',' '));
         }
