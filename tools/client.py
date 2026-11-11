@@ -1,6 +1,8 @@
 import argparse
 import asyncio
 from contextlib import asynccontextmanager
+import json
+from pathlib import Path
 import struct
 import time
 import zlib
@@ -8,7 +10,8 @@ import zlib
 from protocol import (SERVICE, COMMAND, STATUS, OTA, BOARD_ID, INFO, DATA, COMMIT,
                       ABORT, ERASING, RECEIVING, VERIFYING, READY, FAILED,
                       Image, status_decode, version_string, frame, keyboard, mouse, touch,
-                      pointer_drag, touch_swipe)
+                      pointer_drag, touch_swipe, MACRO_STATUS, MACRO_RECORD_SIZE,
+                      macro_records, macro_upload_packets, macro_start, macro_status_decode)
 
 
 class SerialTransport:
@@ -160,6 +163,38 @@ async def play_reports(client, reports):
             await asyncio.sleep(0.04)
 
 
+async def upload_macro(client, records):
+    packets = macro_upload_packets(records)
+    await wait_hid_idle(client)
+    for packet in packets:
+        await client.write_gatt_char(COMMAND, packet, response=True)
+    status = macro_status_decode(bytes(await client.read_gatt_char(MACRO_STATUS)))
+    count = len(records) // MACRO_RECORD_SIZE
+    if status['state'] != 'ready' or status['result'] or status['records'] != count or status['received'] != count:
+        raise RuntimeError(f'Board did not confirm the complete macro: {status}')
+    return status
+
+
+async def macro_action(client, args):
+    if args.action == 'macro-upload':
+        document = json.loads(Path(args.file).read_text(encoding='utf-8-sig'))
+        if not isinstance(document, dict) or 'steps' not in document:
+            raise ValueError('Macro JSON must contain a steps array')
+        result = await upload_macro(client, macro_records(document['steps']))
+    else:
+        if args.action == 'macro-start':
+            packet = macro_start(args.repeats, args.delay, args.interval)
+        else:
+            packet = {'macro-stop': b'\x14', 'macro-pause': b'\x15',
+                      'macro-resume': b'\x16', 'macro-status': None}[args.action]
+        if packet is not None:
+            await client.write_gatt_char(COMMAND, packet, response=True)
+        if args.action == 'macro-stop':
+            await wait_hid_idle(client)
+        result = macro_status_decode(bytes(await client.read_gatt_char(MACRO_STATUS)))
+    print(json.dumps(result, ensure_ascii=False))
+
+
 @asynccontextmanager
 async def controller_connection(device, **options):
     from bleak import BleakClient
@@ -213,6 +248,11 @@ async def ble_action(args):
             return
         if args.action == 'abort':
             await BleTransport(client).send(bytes([ABORT]))
+            return
+        if args.action.startswith('macro-'):
+            if int.from_bytes(status[8:12], 'little') < 0x10100:
+                raise RuntimeError('Firmware does not support macros; upgrade the matching profile first')
+            await macro_action(client, args)
             return
         if args.action in {'touch', 'swipe'} and not status[18] & 4:
             raise RuntimeError('This firmware has no touchscreen; use mouse/click/drag on iOS')
@@ -274,6 +314,14 @@ async def main():
     swipe.set_defaults(hold=0)
     ota = commands.add_parser('ota')
     ota.add_argument('image', help='Generated .ota package')
+    macro = commands.add_parser('macro-upload', help='Upload a keyboard/mouse macro without starting it')
+    macro.add_argument('file', help='UTF-8 JSON with a steps array')
+    macro = commands.add_parser('macro-start', help='Start the uploaded macro; repeats=0 runs until stopped')
+    macro.add_argument('--repeats', type=int, default=1)
+    macro.add_argument('--delay', type=int, default=0, help='Initial delay in ms, 0..65535')
+    macro.add_argument('--interval', type=int, default=0, help='Delay between loops in ms, 0..3600000')
+    for name in ['macro-status', 'macro-pause', 'macro-resume', 'macro-stop']:
+        commands.add_parser(name)
     args = parser.parse_args()
     if args.port:
         if args.action not in {'info', 'ota', 'abort'}:

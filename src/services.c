@@ -168,7 +168,7 @@ static bStatus_t read_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t 
         return copy_value(out,length,offset,maximum,status,sizeof(status));
     }
     if (attr == &controller_attributes[8]) {
-        if (!router_role(&app_router,handle)) return ATT_ERR_INSUFFICIENT_AUTHOR;
+        if (!router_can_control(&app_router,handle)) return ATT_ERR_INSUFFICIENT_AUTHOR;
         memset(status,0,sizeof(status));
         status[0] = 1;
         status[1] = app_router.macro_state;
@@ -243,8 +243,7 @@ static bStatus_t write_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t
     if (method == ATT_PREPARE_WRITE_REQ) return ATT_ERR_ATTR_NOT_LONG;
     if (attr == &controller_attributes[2] || attr == &controller_attributes[6]) {
         if (attr == &controller_attributes[2]) {
-            if (router_role(&app_router, handle) != ROLE_CONTROLLER &&
-                router_role(&app_router, handle) != ROLE_HID)
+            if (!router_can_control(&app_router,handle))
                 return ATT_ERR_INSUFFICIENT_AUTHOR;
             status = app_ota.state != OTA_IDLE && app_ota.state != OTA_FAILED
                 ? RESULT_BUSY : router_command(&app_router,handle,services_ready(),p,size);

@@ -38,6 +38,8 @@ Android 开发分支为 `android/dev`。两个平台在编译时选择，不能�
 
 同机宏功能位于 `feature/self-control-macros` 分支，配套“HID 宏工作台”App。宏回放要求 Android 1.1.0 或更新固件；每轮坐标漂移和轮间隔要求 1.1.1 或更新固件。上表中的旧版不支持宏协议；iOS 冻结版保持独立。同机触摸录制 App 仅用于 Android，不适用于 iPhone。
 
+iOS 宏开发分支为 `ios/dev`，固件版本为 1.1.2。支持通过第二条 GATT 链路上传键盘、相对鼠标与等待记录，由板卡按指定次数或持续循环执行。沿用 iOS 1.0.5 的 HID 报告描述符；新版本的宏执行能力需与原冻结版区分。构建时使用 `--profile ios`。
+
 本工程为串口改到 PB12/PB13、PA8 作常亮指示灯的硬件变体。`releases/` 下的既有固件属于 PA8/PA9 串口版本，与本变体的引脚定义不一致，不能直接烧到本变体硬件上，请以重新构建的 `dist/` 产物为准。
 
 | 文件 | 用途 |
@@ -186,6 +188,44 @@ python -X utf8 tools/client.py --address BLE_ADDRESS release
 
 在仓库 Actions 的 `Android Macro App` 构建中下载 `ch592-macro-android` 产物，安装 `app-debug.apk`；`app-debug-androidTest.apk` 仅用于开发验收。源代码在 `android/`，工作流会运行宏编码单元测试、Android lint，并生成两个 APK。
 
+### iOS 键盘与鼠标宏
+
+iPhone 先占用第一条 HID 连接，电脑或其他控制设备再连接第二条 GATT 链路。控制端确认 `role=2`、`profile=ios`，并检查所用输入的 `ready` 位。iOS 宏仅接受键盘、相对鼠标和等待记录；点按由按钮按下、释放组成，拖动期间保持按钮按下，结束时释放。
+
+控制工具的宏文件为 UTF-8 JSON，顶层包含 `steps` 数组。下面的示例在当前指针位置按下并释放左键，再等待一秒：
+
+```json
+{
+  "steps": [
+    {"type": "mouse", "buttons": 1, "delay_ms": 80},
+    {"type": "mouse", "buttons": 0, "delay_ms": 40},
+    {"type": "wait", "delay_ms": 1000}
+  ]
+}
+```
+
+| 记录类型 | 字段 |
+| --- | --- |
+| `mouse` | `dx`、`dy` 为相对 HID 位移，`buttons` 为按钮位图，`wheel`、`pan` 为滚轮；省略时均为 0 |
+| `keyboard` | `modifiers` 为修饰键位图，`keys` 为最多六个 HID Usage；空按键及零修饰键表示释放 |
+| `wait` | 只等待，不发送输入 |
+| 所有类型 | `delay_ms` 为当前记录发送后的等待时间，范围 0–65535 毫秒 |
+
+上传仅保存完整宏，启动回放是独立操作。执行前先观察投屏，确认当前页面和指针位置：
+
+```console
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-upload macro.json
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-start --repeats 1 --delay 1500 --interval 1000
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-status
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-pause
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-resume
+python -X utf8 tools/client.py --address BLE_ADDRESS macro-stop
+```
+
+`--repeats 0` 持续循环，正数表示执行次数；`--delay` 是首轮开始前的等待，`--interval` 是相邻两轮间隔，最大一小时。暂停会等当前按键或按钮释放后生效，`macro-status` 显示 `paused` 才表示已暂停。停止会取消后续动作并释放输入。已启动的宏在控制端断开后继续执行，重新连接第二条链路即可查询、暂停或停止；iPhone 的 HID 连接断开或板卡断电会清空宏。单个宏最多 64 条记录，每个移动报告和释放报告分别占一条。
+
+固件不接收 AirPlay 画面，也不把鼠标位移视为屏幕像素。投屏区域的框选、目标坐标归一化、指针定位和误差修正由控制端完成，再转换成相对鼠标报告。iOS 宏的触摸坐标漂移参数必须为 0；需要改变点击位置时，由控制端生成相应移动报告。回放结束还需观察画面确认操作结果。
+
 <a id="gatt"></a>
 
 ## 4. GATT 控制协议
@@ -197,15 +237,15 @@ python -X utf8 tools/client.py --address BLE_ADDRESS release
 | 名称 | UUID | 操作与权限 |
 | --- | --- | --- |
 | 控制服务 | `59200001-3c7f-4a9e-8c51-3b9d4b6a1200` | 发现服务 |
-| Command | `59200002-3c7f-4a9e-8c51-3b9d4b6a1200` | 加密写，HID 本机或 controller |
+| Command | `59200002-3c7f-4a9e-8c51-3b9d4b6a1200` | 加密写，仅 controller；Android 另允许 HID 本机 |
 | Status | `59200003-3c7f-4a9e-8c51-3b9d4b6a1200` | 读取当前连接角色与运行状态 |
 | OTA | `59200004-3c7f-4a9e-8c51-3b9d4b6a1200` | 加密读写，仅 controller |
-| MacroStatus | `59200005-3c7f-4a9e-8c51-3b9d4b6a1200` | 加密读，HID 本机或 controller |
+| MacroStatus | `59200005-3c7f-4a9e-8c51-3b9d4b6a1200` | 加密读，仅 controller；Android 另允许 HID 本机 |
 | HID | `0x1812` | 仅 HID 角色读取报告、订阅通知、写输出报告 |
 | Device Information | `0x180A` | 型号、版本、序列号与 PnP 信息 |
 | Battery | `0x180F` | 固定返回 100，未实现电池采样 |
 
-两端可发现同一 GATT 表，访问时按角色鉴权。1.1.0 起 HID 本机允许写 Command，以支持手机控制自身；controller 仍不能读 HID 或写其 CCCD，HID 本机不能访问 OTA。蓝牙升级仍由第二条 controller 链路执行。
+两端可发现同一 GATT 表，访问时按角色鉴权。Android 1.1.0 起允许 HID 本机写 Command、读 MacroStatus，以支持手机控制自身；iOS 仍只允许第二条 controller 链路访问这两个特征。controller 不能读 HID 或写其 CCCD，HID 本机不能访问 OTA。蓝牙升级由第二条 controller 链路执行。
 
 ### 4.2 Status：20 字节
 
@@ -296,6 +336,8 @@ iOS 不接受触摸命令。旧指令 `05` 已移除，返回 VALUE。操作码�
 上传过程只接受同一个连接的 DATA/COMMIT；相同偏移、相同内容的已收记录允许重传。提交前不会执行。回放或暂停期间拒绝新的实时输入，`04` 和 `14` 都可以停止。HID 断开清空宏；第二控制端断开不会中断已经启动的回放。OTA 或 HID suspend 会停止宏。
 
 1.1.1 起，9 字节格式继续兼容仅含两轴坐标漂移半径的旧请求；13 字节格式在其后增加轮间隔。漂移半径使用 0–32767 的 HID 坐标，像素值按 `round(radius_px * 32767 / (screen_pixels - 1))` 换算。固件按整条宏的坐标边界限制偏移，同一轮所有触点共用偏移，暂停后继续不重新选择；下一轮开始时重新选择。轮间隔为 0–3,600,000 毫秒，只发生在相邻两轮之间，不占用宏记录；暂停期间保留剩余等待时间。旧的 3/5/9 字节格式没有轮间隔，按 0 处理。
+
+iOS 1.1.2 支持上述宏协议中的等待、键盘和鼠标记录，拒绝触摸记录。START 的 3、5、9、13 字节格式均可使用，但 `jitter_x` 和 `jitter_y` 必须为 0，非零返回 VALUE；13 字节格式仍支持 `loop_delay_ms`。鼠标移动保持原始相对量，固件不会自行归零指针或进行屏幕坐标换算。
 
 MacroStatus 为 20 字节：0 协议版本 1；1 状态（同 Status[19]）；2 最近宏结果码；3 下一记录索引；4 总记录数；5 已接收记录数；6–7 剩余循环（0 持续）；8–9 当前等待毫秒数（超过 65535 时饱和）；10–11 最大记录数 64；12–13 每记录大小 11；14–15 当前 X 偏移 i16；16–17 当前 Y 偏移 i16；18–19 保留。实时监控应同时检查 HID 在线、ready 和 queue；宏回到就绪且队列清空后，再通过画面确认应用效果。
 

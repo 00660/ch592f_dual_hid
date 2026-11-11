@@ -21,6 +21,12 @@ def main():
     subprocess.run([args.cc, '-std=c99', '-Wall', '-Werror', '-DHID_HAS_TOUCH=1', '-I' + str(ROOT / 'include'),
                     *[str(ROOT / p) for p in sources], '-o', str(output)], check=True)
     subprocess.run([str(output)], check=True)
+    ios = output.with_name('test_ios_macro' + ('.exe' if os.name == 'nt' else ''))
+    subprocess.run([args.cc, '-std=c99', '-Wall', '-Werror', '-DHID_HAS_TOUCH=0',
+                    '-I' + str(ROOT / 'include'), str(ROOT / 'tests/test_ios_macro.c'),
+                    str(ROOT / 'src/router.c'), str(ROOT / 'src/common.c'),
+                    '-o', str(ios)], check=True)
+    subprocess.run([str(ios)], check=True)
     for enabled, profile in [(0, 'ios'), (1, 'android')]:
         gatt = output.with_name('test_gatt_' + profile + ('.exe' if os.name == 'nt' else ''))
         subprocess.run([args.cc, '-std=c99', '-Wall', '-Werror', '-DHID_HAS_TOUCH=' + str(enabled),

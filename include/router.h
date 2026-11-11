@@ -65,6 +65,7 @@ typedef struct {
 void router_init(router_t *router);
 uint8_t router_connect(router_t *router, uint16_t handle);
 uint8_t router_role(const router_t *router, uint16_t handle);
+uint8_t router_can_control(const router_t *router, uint16_t handle);
 void router_disconnect(router_t *router, uint16_t handle);
 void router_release(router_t *router);
 uint8_t router_command(router_t *router, uint16_t handle, uint8_t ready_mask,

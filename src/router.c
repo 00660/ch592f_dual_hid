@@ -116,10 +116,10 @@ static uint16_t load_le16(const uint8_t *p)
     return (uint16_t)p[0] | ((uint16_t)p[1] << 8);
 }
 
-static uint8_t control_role(const router_t *r, uint16_t h)
+uint8_t router_can_control(const router_t *r, uint16_t h)
 {
     uint8_t role = router_role(r, h);
-    return role == ROLE_CONTROLLER || role == ROLE_HID;
+    return role == ROLE_CONTROLLER || (HID_HAS_TOUCH && role == ROLE_HID);
 }
 
 static uint8_t macro_validate(uint8_t ready, const uint8_t *step)
@@ -260,6 +260,9 @@ static uint8_t macro_command(router_t *r, uint16_t h, uint8_t ready,
         if (n == 13 && (load_le16(p + 5) > 32767 || load_le16(p + 7) > 32767 ||
                         load_le32(p + 9) > 3600000u))
             return RESULT_VALUE;
+#if !HID_HAS_TOUCH
+        if (n >= 9 && (load_le16(p + 5) || load_le16(p + 7))) return RESULT_VALUE;
+#endif
         if (r->macro_state != MACRO_READY || r->hid == NO_CONNECTION)
             return RESULT_STATE;
         if ((ready & r->macro_required) != r->macro_required) return RESULT_NOT_READY;
@@ -297,7 +300,7 @@ uint8_t router_command(router_t *r, uint16_t h, uint8_t ready,
                        const uint8_t *p, uint16_t n)
 {
     uint8_t id, size;
-    if (!control_role(r, h)) return RESULT_ROLE;
+    if (!router_can_control(r, h)) return RESULT_ROLE;
     if (!n) return RESULT_LENGTH;
     id = p[0];
     if (id >= CMD_MACRO_BEGIN && id <= CMD_MACRO_RESUME) {

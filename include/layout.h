@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define FW_VERSION       0x00010101u
+#define FW_VERSION       0x00010102u
 #define BOARD_ID         0x592F0301u
 #define JUMP_BASE        0x00000000u
 #define APP_BASE         0x00001000u

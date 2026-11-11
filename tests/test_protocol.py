@@ -111,6 +111,11 @@ class ProtocolTests(unittest.TestCase):
             with self.subTest(profile=profile):
                 self.check_report_map(profile)
 
+    def test_ios_report_map_matches_accepted_firmware(self):
+        descriptor = (ROOT / 'build/report_map_ios.bin').read_bytes()
+        accepted = (ROOT / 'releases/ios-v1.0.5/app.bin').read_bytes()
+        self.assertIn(descriptor, accepted)
+
     def check_report_map(self, profile):
         data = (ROOT / 'build' / ('report_map_' + profile + '.bin')).read_bytes()
         self.assertLessEqual(len(data), 512)

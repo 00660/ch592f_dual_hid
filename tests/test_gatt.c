@@ -111,6 +111,59 @@ void ota_status(const ota_t *o, uint8_t status[20])
 /* Exercise the real callbacks and tables against the official WCH API types. */
 #include "../src/services.c"
 
+static void test_macro_notifications(void)
+{
+    const uint8_t records[][MACRO_STEP_SIZE] = {
+        {5,0,CMD_MOUSE,1,0xF6,0xFF,20,0,0,0,0},
+        {5,0,CMD_MOUSE,0,0,0,0,0,0,0,0},
+        {5,0,CMD_KEYBOARD,8,0,44,0,0,0,0,0},
+        {5,0,CMD_KEYBOARD,0,0,0,0,0,0,0,0}
+    };
+    uint8_t begin[6]={CMD_MACRO_BEGIN,4}, data[14]={CMD_MACRO_DATA};
+    uint8_t commit=CMD_MACRO_COMMIT, start[]={CMD_MACRO_START,2,0};
+    uint8_t out[20], suspend=0, resume=1;
+    uint16_t length;
+    unsigned i, ticks, sent=0, before;
+    router_release(&app_router);
+    while (app_router.count) services_send();
+    store_le32(begin+2,crc32(records,sizeof(records)));
+    assert(write_attribute(7,&controller_attributes[2],begin,sizeof(begin),0,ATT_WRITE_REQ)==SUCCESS);
+    for (i=0;i<4;++i) {
+        data[1]=(uint8_t)(i*MACRO_STEP_SIZE);memcpy(data+3,records[i],MACRO_STEP_SIZE);
+        assert(write_attribute(7,&controller_attributes[2],data,sizeof(data),0,ATT_WRITE_REQ)==SUCCESS);
+    }
+    assert(write_attribute(7,&controller_attributes[2],&commit,1,0,ATT_WRITE_REQ)==SUCCESS);
+    assert(read_attribute(7,&controller_attributes[8],out,&length,0,20,ATT_READ_REQ)==SUCCESS);
+    assert(length==20 && out[1]==MACRO_READY && out[4]==4 && out[5]==4);
+    assert(write_attribute(7,&controller_attributes[2],start,sizeof(start),0,ATT_WRITE_REQ)==SUCCESS);
+    for (ticks=0;ticks<200 && app_router.macro_state==MACRO_RUNNING;++ticks) {
+        router_macro_tick(&app_router,services_ready(),5);
+        if (app_router.macro_state!=MACRO_RUNNING) break;
+        if (!app_router.count) continue;
+        before=notification_count;fail_notification=1;
+        services_send();router_macro_tick(&app_router,services_ready(),5);
+        assert(app_router.count==1 && notification_count==before);
+        fail_notification=0;services_send();
+        assert(notification_count==before+1 && !app_router.count);
+        assert(notification_connection==0);
+        assert(notification_handle==hid_attributes[records[sent%4][2]==CMD_MOUSE?MOUSE_VALUE:KEY_VALUE].handle);
+        assert(!memcmp(notification_bytes,records[sent%4]+3,notification_length));
+        ++sent;
+    }
+    assert(sent==8 && app_router.macro_state==MACRO_READY);
+    while (app_router.count) services_send();
+    assert(write_attribute(7,&controller_attributes[2],start,sizeof(start),0,ATT_WRITE_REQ)==SUCCESS);
+    assert(write_attribute(0,&hid_attributes[4],&suspend,1,0,ATT_WRITE_REQ)==SUCCESS);
+    assert(app_router.macro_state==MACRO_READY && !services_ready());
+    assert(write_attribute(0,&hid_attributes[4],&resume,1,0,ATT_WRITE_REQ)==SUCCESS);
+    while (app_router.count) services_send();
+    assert(!app_router.macro_held);
+    app_ota.state=OTA_RECEIVING;
+    assert(write_attribute(7,&controller_attributes[2],start,sizeof(start),0,ATT_WRITE_REQ)==0x80+RESULT_BUSY);
+    app_ota.state=OTA_IDLE;
+    puts("PASS GATT macro upload/status, mouse retry without duplication, suspend and OTA exclusion");
+}
+
 int main(int argc, char **argv)
 {
     uint8_t enable[] = {1,0}, out[64], key[] = {1,0,0,4,0,0,0,0,0}, ota[] = {OTA_INFO};
@@ -132,7 +185,8 @@ int main(int argc, char **argv)
     assert(length == 7 && out[0] == 1 && out[1] == 0xD7 && out[2] == 7);
     assert(read_attribute(0,&battery_attributes[2],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 1 && out[0] == 100);
-    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == 0x80+RESULT_NOT_READY);
+    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) ==
+           (HID_HAS_TOUCH ? 0x80+RESULT_NOT_READY : ATT_ERR_INSUFFICIENT_AUTHOR));
     assert(write_attribute(0,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
     assert(ota_calls == 0);
     for (i = 0; i < HID_INPUT_COUNT; ++i) {
@@ -142,7 +196,7 @@ int main(int argc, char **argv)
         assert(length == 2 && out[0] == i+1 && out[1] == 1);
     }
     assert(services_ready() == (HID_HAS_TOUCH ? 7 : 3));
-    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == SUCCESS);
+    assert(write_attribute(HID_HAS_TOUCH?0:7,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == SUCCESS);
     services_send();
     assert(notification_connection == 0 && notification_length == 8 &&
            !memcmp(notification_bytes,key+1,8));
@@ -211,8 +265,11 @@ int main(int argc, char **argv)
     assert(write_attribute(0,&hid_attributes[LED_VALUE],enable,1,0,ATT_WRITE_REQ) == SUCCESS);
     assert(read_attribute(0,&hid_attributes[LED_VALUE],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 1 && out[0] == 1);
+    test_macro_notifications();
     assert(write_attribute(7,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == SUCCESS && ota_calls == 1);
-    assert(read_attribute(0,&controller_attributes[8],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
+    assert(read_attribute(0,&controller_attributes[8],out,&length,0,64,ATT_READ_REQ) ==
+           (HID_HAS_TOUCH ? SUCCESS : ATT_ERR_INSUFFICIENT_AUTHOR));
+    assert(read_attribute(7,&controller_attributes[8],out,&length,0,64,ATT_READ_REQ) == SUCCESS);
     assert(length == 20 && out[0] == 1 && out[10] == MACRO_MAX_STEPS && out[12] == MACRO_STEP_SIZE);
     assert(read_attribute(0,&controller_attributes[6],out,&length,0,64,ATT_READ_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
     assert(write_attribute(99,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == ATT_ERR_INSUFFICIENT_AUTHOR);
@@ -221,7 +278,8 @@ int main(int argc, char **argv)
     assert(write_attribute(7,&controller_attributes[6],ota,1,0,ATT_WRITE_REQ) == SUCCESS && ota_calls == 2);
     assert(app_router.macro_state == MACRO_READY);
     while (app_router.count) services_send();
-    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) == SUCCESS);
+    assert(write_attribute(0,&controller_attributes[2],key,sizeof(key),0,ATT_WRITE_REQ) ==
+           (HID_HAS_TOUCH ? SUCCESS : ATT_ERR_INSUFFICIENT_AUTHOR));
     services_send();
     encrypted = 0;
     assert(services_ready() == 0);
