@@ -47,38 +47,39 @@ public class RecordingFlowTest {
             instrumentation.runOnMainSync(()->board.connect(address));
             await(()->board.connected&&!board.busy,45,"Same-phone service did not connect");
             int before=MacroStore.load(context).size();
-            instrumentation.runOnMainSync(board::record);
+            instrumentation.runOnMainSync(board::showToolbar);
             UiDevice ui=UiDevice.getInstance(instrumentation);
-            assertTrue(ui.wait(Until.hasObject(By.textContains("录制已开启")),5000));
+            assertTrue(ui.wait(Until.hasObject(By.text("录制")),5000));ui.findObject(By.text("录制")).click();
+            assertTrue(ui.wait(Until.hasObject(By.text("完成录制")),5000));
             int x=ui.getDisplayWidth()/2;
             // This gesture emulates the user's recording stroke, not HID output.
-            ui.swipe(x,ui.getDisplayHeight()*3/4,x,ui.getDisplayHeight()/3,60);
+            ui.swipe(x,ui.getDisplayHeight()*4/5,x,ui.getDisplayHeight()*3/5,60);
             await(()->target.get().gestures>=1,15,"No HID replay after recording stroke");
             assertTrue("Replay must come from the physical board: "+target.get().inputName,target.get().inputName.contains("CH592"));
             assertTrue(target.get().startY-target.get().endY>200);
             assertTrue(ui.wait(Until.hasObject(By.textContains("已录制")),8000));
-            ui.findObject(By.text("结束录制并保存")).click();
+            ui.findObject(By.text("完成录制")).click();
             await(()->MacroStore.load(context).size()==before+1,5,"Recorded macro was not saved");
             Macro recorded=MacroStore.load(context).get(before);
             assertFalse(recorded.steps.isEmpty());
-            recorded.repeats=0;recorded.startDelay=1000;
-            recorded.steps.add(Macro.Step.waitFor(1500));
+            recorded.repeats=0;recorded.startDelay=300;recorded.loopDelay=800;recorded.jitterX=8;recorded.jitterY=8;
+            instrumentation.runOnMainSync(()->{board.selectMacro(recorded,before);board.saveSelectedMacro();});
             try(ActivityScenario<InputTestActivity> replay=ActivityScenario.launch(InputTestActivity.class)) {
                 replay.onActivity(target::set);
-                instrumentation.runOnMainSync(()->board.play(recorded,null));
-                await(()->target.get().gestures>=1,15,"Saved macro did not replay");
+                ui.findObject(By.text("播放")).click();
+                await(()->target.get().gestures>=3,18,"Continuous playback did not repeat");
                 assertTrue(target.get().inputName.contains("CH592"));
-                instrumentation.runOnMainSync(board::pauseResume);
+                ui.findObject(By.text("暂停")).click();
                 await(()->board.macroState!=null&&board.macroState[1]==4,8,"Pause did not settle");
                 int count=target.get().gestures;SystemClock.sleep(1800);assertEquals(count,target.get().gestures);
-                instrumentation.runOnMainSync(board::pauseResume);
+                assertTrue(ui.wait(Until.hasObject(By.text("继续")),3000));ui.findObject(By.text("继续")).click();
                 await(()->target.get().gestures>count,8,"Resume did not produce HID input");
-                context.startService(new Intent(context,MacroService.class).setAction(MacroService.STOP));
+                ui.findObject(By.text("停止")).click();
                 await(()->!board.busy&&board.macroState!=null&&board.macroState[1]==2,8,"Notification stop action did not stop");
                 SystemClock.sleep(500);int stopped=target.get().gestures;
                 SystemClock.sleep(1800);assertEquals(stopped,target.get().gestures);
             }
-            android.util.Log.i("HIDMacroAcceptance","RECORD_EDIT_PLAY_PAUSE_STOP_PASS");
+            android.util.Log.i("HIDMacroAcceptance","TOOLBAR_RECORD_LOOP_JITTER_PAUSE_STOP_PASS");
         } finally {
             if(service!=null){MacroService board=service;instrumentation.runOnMainSync(board::stopMacro);SystemClock.sleep(500);}
             if(attached)context.unbindService(connection);

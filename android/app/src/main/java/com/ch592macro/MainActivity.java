@@ -22,13 +22,13 @@ public final class MainActivity extends Activity {
     private List<Macro> macros = new ArrayList<>();
     private int selected;
     private LinearLayout content, steps;
-    private TextView connection, progress, capacity;
-    private Button play, pause, stop, record;
+    private TextView board, connection, progress, capacity;
+    private Button toolbarButton;
     private Spinner library;
     private boolean loading;
     private boolean bound;
     private final ServiceConnection binding = new ServiceConnection() {
-        @Override public void onServiceConnected(ComponentName name, IBinder binder) { service=((MacroService.LocalBinder)binder).service(); service.listener=MainActivity.this::refreshStatus; refreshStatus(); }
+        @Override public void onServiceConnected(ComponentName name, IBinder binder) { service=((MacroService.LocalBinder)binder).service(); service.listener=MainActivity.this::refreshStatus; if(!service.running()&&!service.isRecording())service.selectMacro(current(),selected);refreshStatus(); }
         @Override public void onServiceDisconnected(ComponentName name) { service=null; refreshStatus(); }
     };
     @Override public void onCreate(Bundle state) {
@@ -37,7 +37,7 @@ public final class MainActivity extends Activity {
         draw(); bound = bindService(new Intent(this,MacroService.class),binding,Context.BIND_AUTO_CREATE);
     }
     private boolean reload() {
-        try { macros=MacroStore.load(this); if(macros.isEmpty()) macros.add(new Macro()); selected=Math.min(selected,macros.size()-1); return true; }
+        try { macros=MacroStore.load(this); if(macros.isEmpty()) macros.add(new Macro()); selected=Math.max(0,Math.min(getSharedPreferences("macros",0).getInt("selected",0),macros.size()-1)); return true; }
         catch(Exception e) {
             new AlertDialog.Builder(this).setTitle("无法读取动作宏").setMessage(e.getMessage()+"\n原有数据已保留，请检查应用数据后重试。")
                     .setCancelable(false).setPositiveButton("关闭",(d,w)->finish()).show();
@@ -71,37 +71,34 @@ public final class MainActivity extends Activity {
         scroll.setOnApplyWindowInsetsListener((v,insets)->{ v.setPadding(0,insets.getSystemWindowInsetTop(),0,insets.getSystemWindowInsetBottom()); return insets; });
         setContentView(scroll);
         TextView heading=text("HID 宏工作台",28,INK); heading.setTypeface(null,Typeface.BOLD); content.addView(heading);
-        content.addView(text("录制一个手势，让板卡重复执行",15,MUTED));
-        LinearLayout device=card("本机板卡"); connection=text("先配对系统蓝牙，再连接控制服务",14,MUTED); device.addView(connection);
+        content.addView(text("录制、编辑与回放通用手机操作",15,MUTED));
+        LinearLayout device=card("本机板卡");board=text("",16,INK);device.addView(board);
+        connection=text("先配对系统蓝牙，再连接控制服务",14,MUTED); device.addView(connection);
+        SharedPreferences chosen=getSharedPreferences("device",0);
+        board.setText(chosen.getString("address","").isEmpty()?"尚未选择板卡":chosen.getString("name","CH592F-3IN1")+"\n"+chosen.getString("address",""));
         LinearLayout connectRow=row(); rowButton(connectRow,"选择板卡",this::chooseDevice); rowButton(connectRow,"系统蓝牙",()->startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS))); device.addView(connectRow);
 
         LinearLayout macro=card("动作宏"); library=new Spinner(this); macro.addView(library); refreshLibrary();
         library.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(android.widget.AdapterView<?> p,View v,int position,long id) { if(!loading) { selected=position; refreshSteps(); } }
+            public void onItemSelected(android.widget.AdapterView<?> p,View v,int position,long id) { if(!loading) { selected=position;getSharedPreferences("macros",0).edit().putInt("selected",selected).apply();if(service!=null&&!service.running()&&!service.isRecording())service.selectMacro(current(),selected);refreshSteps(); } }
             public void onNothingSelected(android.widget.AdapterView<?> p) {}
         });
         LinearLayout manage=row(); rowButton(manage,"新建",()->{ macros.add(new Macro()); selected=macros.size()-1; save(); refreshLibrary(); refreshSteps(); settings(); });
         rowButton(manage,"设置",this::settings); rowButton(manage,"删除",()->new AlertDialog.Builder(this).setTitle("删除此动作宏？").setMessage(current().name).setNegativeButton("取消",null).setPositiveButton("删除",(d,w)->{macros.remove(selected); if(macros.isEmpty())macros.add(new Macro()); selected=0;save();refreshLibrary();refreshSteps();}).show()); macro.addView(manage);
         capacity=text("",13,MUTED); macro.addView(capacity);
         steps=new LinearLayout(this); steps.setOrientation(LinearLayout.VERTICAL); macro.addView(steps);
-        LinearLayout add=row(); rowButton(add,"画手势",this::drawGesture); rowButton(add,"等待",()->editWait(-1)); rowButton(add,"上滑模板",()->{current().steps.add(Macro.Step.line(.5f,.8f,.5f,.25f,300)); save();refreshSteps();}); macro.addView(add);
-        record=button("在目标应用上录制",this::record); macro.addView(record);
-        macro.addView(text("录制时先切到目标应用。悬浮层记录手势，松手后板卡重放；结束后可调整步骤与等待时间。",13,MUTED));
+        LinearLayout add=row(); rowButton(add,"画手势",this::drawGesture); rowButton(add,"等待",()->editWait(-1)); macro.addView(add);
+        macro.addView(text("点击步骤调整时长、位置和顺序。执行方式、每轮间隔与坐标漂移在设置中自由配置。",13,MUTED));
 
-        LinearLayout player=card("回放"); progress=text("尚未开始",14,MUTED); player.addView(progress);
-        play=button("上传并播放",()->{
-            if(service==null)return;
-            save(); foreground(); service.play(current(),null);
-        });
-        play.setTextColor(0xffffffff); play.setBackgroundTintList(android.content.res.ColorStateList.valueOf(GREEN)); player.addView(play);
-        LinearLayout controls=row(); pause=button("暂停",()->{if(service!=null)service.pauseResume();}); stop=button("停止",()->{if(service!=null)service.stopMacro();});
-        controls.addView(pause,new LinearLayout.LayoutParams(0,-2,1)); controls.addView(stop,new LinearLayout.LayoutParams(0,-2,1)); player.addView(controls);
-        player.addView(text("默认预留 5 秒切换应用。回放由板卡执行；切换应用后，可从通知栏停止。板卡断电后需重新上传。",13,MUTED));
+        LinearLayout player=card("悬浮控制"); progress=text("尚未开始",14,MUTED); player.addView(progress);
+        toolbarButton=button("开启悬浮工具条",this::openToolbar);toolbarButton.setTextColor(0xffffffff);
+        toolbarButton.setBackgroundTintList(android.content.res.ColorStateList.valueOf(GREEN));player.addView(toolbarButton);
+        player.addView(text("在目标应用内直接录制、完成保存、播放、暂停或停止。工具条可拖动；播放时自动缩小并避开手势区域。",13,MUTED));
         content.addView(button("输入验证页",()->startActivity(new Intent(this,InputTestActivity.class))));
         refreshSteps(); refreshStatus();
     }
     private Macro current() { return macros.get(selected); }
-    private void save() { try { MacroStore.save(this,macros); } catch(Exception e) {toast(e.getMessage());} }
+    private void save() { try { MacroStore.save(this,macros);getSharedPreferences("macros",0).edit().putInt("selected",selected).apply();if(service!=null&&!service.running()&&!service.isRecording())service.selectMacro(current(),selected); } catch(Exception e) {toast(e.getMessage());} }
     private void refreshLibrary() {
         if(library==null || macros.isEmpty())return; loading=true;
         List<String> names=new ArrayList<>();for(Macro m:macros)names.add(m.name);
@@ -115,20 +112,18 @@ public final class MainActivity extends Activity {
             line.setBackgroundResource(android.R.drawable.list_selector_background); line.setOnClickListener(v->stepMenu(index)); steps.addView(line);
         }
         if(current().steps.isEmpty())steps.addView(text("添加手势或开始录制",14,MUTED));
-        String detail=(current().repeats==0?"持续循环":current().repeats+" 次循环")+" · "+current().startDelay/1000f+" 秒后开始";
+        String detail=current().playbackLabel()+" · "+current().startDelay/1000f+" 秒后开始\n每轮间隔 "+current().loopDelay/1000f+" 秒 · 扰动 ±"+current().jitterX+" / ±"+current().jitterY+" px";
         try { detail+=" · "+MacroCodec.compile(current()).length/MacroCodec.RECORD_SIZE+" / 64 条记录"; }
         catch(Exception e) { detail+="\n"+e.getMessage(); }
         capacity.setText(detail);
     }
     private void refreshStatus() {
         if(connection==null || service==null)return;
-        connection.setText(service.message);
+        board.setText(service.boardAddress.isEmpty()?"尚未选择板卡":service.boardName+"\n"+service.boardAddress);
+        connection.setText(service.connectionState+" · "+service.message);
         byte[] m=service.macroState,s=service.state; int state=m==null?0:m[1]&255;
         boolean active=state>=3;
-        play.setEnabled(service.connected&&!service.busy&&!active);
-        record.setEnabled(service.connected&&!service.busy&&!active);
-        pause.setEnabled(service.connected&&!service.busy&&(state==3||state==4)); pause.setText(state==4?"继续":"暂停");
-        stop.setEnabled(service.connected);
+        toolbarButton.setEnabled(service.connected&&!service.busy);
         String[] names={"板卡无宏","上传中","就绪","回放中","已暂停","手势结束后暂停"};
         progress.setText(m==null?"尚未连接":(state<names.length?names[state]:"未知状态")+" · 输入 "+(m[3]&255)+" / "+(m[4]&255)+"\n剩余循环 "+(MacroCodec.u16(m,6)==0?"持续":MacroCodec.u16(m,6))+(s!=null&&s[1]==1?" · 本机控制":""));
     }
@@ -159,12 +154,10 @@ public final class MainActivity extends Activity {
         if(value<min||value>max)throw new IllegalArgumentException("数值须在 "+min+" 至 "+max+" 之间");return value;
     }
     private void settings() {
-        LinearLayout f=form();Macro macro=current();
-        EditText name=field(f,"名称",macro.name,false), repeats=field(f,"循环次数（0 为持续循环）",""+macro.repeats,true), delay=field(f,"启动延时 / 毫秒",""+macro.startDelay,true);
-        dialog("宏设置",f,()->{String value=name.getText().toString().trim();if(value.isEmpty())throw new IllegalArgumentException("名称不能为空");int n=number(repeats,0,65535),ms=number(delay,0,65535);macro.name=value;macro.repeats=n;macro.startDelay=ms;});
+        MacroSettings.show(this,current(),false,()->{save();refreshLibrary();refreshSteps();});
     }
     private void editWait(int index) {
-        LinearLayout f=form(); EditText duration=field(f,"等待时间 / 毫秒",index<0?"15000":""+current().steps.get(index).duration,true);
+        LinearLayout f=form(); EditText duration=field(f,"等待时间 / 毫秒",index<0?"1000":""+current().steps.get(index).duration,true);
         dialog("等待",f,()->{int ms=number(duration,1,3600000);if(index<0)current().steps.add(Macro.Step.waitFor(ms));else current().steps.get(index).duration=ms;});
     }
     private void stepMenu(int index) {
@@ -196,11 +189,10 @@ public final class MainActivity extends Activity {
         f.addView(pad,new LinearLayout.LayoutParams(-1,dp(360)));
         new AlertDialog.Builder(this).setTitle("录入手势").setView(f).setPositiveButton("完成",null).show();
     }
-    private void record() {
-        if(!Settings.canDrawOverlays(this)){startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:"+getPackageName())));toast("授权悬浮窗后返回，重新点击录制");return;}
+    private void openToolbar() {
+        if(!Settings.canDrawOverlays(this)){startActivity(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:"+getPackageName())));toast("授权后返回，重新开启悬浮工具条");return;}
         if(service==null)return;
-        foreground();
-        new AlertDialog.Builder(this).setTitle("开始录制").setMessage("确认后有 5 秒切换到目标应用。随后悬浮层采集单指手势，板卡在松手后执行。点击底部“结束录制并保存”结束。").setNegativeButton("取消",null).setPositiveButton("5 秒后开始",(d,w)->{moveTaskToBack(true);main.postDelayed(()->{if(service!=null)service.record();},5000);}).show();
+        save();foreground();service.showToolbar();moveTaskToBack(true);
     }
     private boolean permissions() {
         List<String> needed=new ArrayList<>();
@@ -225,7 +217,7 @@ public final class MainActivity extends Activity {
         AlertDialog dialog=new AlertDialog.Builder(this).setTitle("选择本机已配对的板卡").setAdapter(items,(d,which)->{
             BluetoothDevice device=devices.get(which);
             if(device.getBondState()!=BluetoothDevice.BOND_BONDED){toast("请先在系统蓝牙设置中配对此板卡");startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));return;}
-            if(service!=null){foreground();service.connect(device.getAddress());}
+            if(service!=null){foreground();service.connect(device.getName(),device.getAddress());}
         }).setNeutralButton("扫描附近",null).setNegativeButton("关闭",null).create();
         android.bluetooth.le.BluetoothLeScanner scanner=adapter.getBluetoothLeScanner();
         android.bluetooth.le.ScanCallback callback=new android.bluetooth.le.ScanCallback(){

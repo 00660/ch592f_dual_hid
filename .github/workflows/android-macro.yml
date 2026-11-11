@@ -21,6 +21,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: macro-app-debug-signing-v1
       - name: Test and build
         working-directory: android
         run: gradle --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest

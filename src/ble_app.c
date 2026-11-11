@@ -193,6 +193,7 @@ void ble_app_init(void)
     uint16_t appearance = 0x03C0;
     __attribute__((aligned(4))) uint8_t address[6];
     router_init(&app_router);
+    app_router.macro_random = tmos_rand();
     ota_init(&app_ota);
     task = TMOS_ProcessEventRegister(process);
     diag_printf("[BLE] task=%u\n",(unsigned)task);

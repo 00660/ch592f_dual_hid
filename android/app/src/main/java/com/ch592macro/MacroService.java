@@ -20,18 +20,28 @@ public final class MacroService extends Service {
     public volatile boolean busy, connected;
     public volatile byte[] state, macroState;
     public Listener listener;
+    public volatile String boardName = "", boardAddress = "", connectionState = "未连接";
+    public Macro selectedMacro = new Macro();
+    public int selectedIndex;
     private Runnable previewFinished;
     private boolean previewSeen;
     private boolean polling;
     private volatile boolean stopping;
     private volatile int generation;
     private RecorderOverlay recorder;
+    private FloatingToolbar toolbar;
+    private boolean destroyed;
 
     @Override public void onCreate() {
         super.onCreate();
+        SharedPreferences preferences=getSharedPreferences("device",MODE_PRIVATE);
+        boardName=preferences.getString("name","");boardAddress=preferences.getString("address","");
+        try { java.util.List<Macro> macros=MacroStore.load(this);selectedIndex=Math.min(getSharedPreferences("macros",0).getInt("selected",0),macros.size()-1);if(selectedIndex>=0)selectedMacro=macros.get(selectedIndex); }
+        catch(Exception error){message=error.getMessage();}
         getSystemService(NotificationManager.class).createNotificationChannel(new NotificationChannel(CHANNEL,"板卡回放",NotificationManager.IMPORTANCE_LOW));
         link = new BleLink(() -> main.post(() -> {
             connected = false; state = macroState = null;
+            connectionState = "已断开";
             message = "蓝牙已断开，请重新连接检查板卡状态";
             if (recorder != null) recorder.close();
             finishPreview(); changed();
@@ -52,6 +62,8 @@ public final class MacroService extends Service {
                 .addAction(new Notification.Action.Builder(null,"停止回放",stop).build()).build();
     }
     private void changed() {
+        if(destroyed)return;
+        if(toolbar!=null)toolbar.refresh();
         if (listener != null) listener.changed();
         if (connected) getSystemService(NotificationManager.class).notify(1,notification());
     }
@@ -71,10 +83,19 @@ public final class MacroService extends Service {
         return true;
     }
     public void connect(String address) {
+        connect("CH592F-3IN1",address);
+    }
+    public void connect(String name, String address) {
+        if(busy||running()||isRecording()){message="请先停止当前任务再切换板卡";changed();return;}
+        boardName=name==null?"CH592F-3IN1":name;boardAddress=address;connectionState="连接中";
+        getSharedPreferences("device",MODE_PRIVATE).edit().putString("name",boardName).putString("address",address).apply();
+        state=macroState=null;changed();
         job("正在连接本机板卡…",() -> {
             connected = false;
-            link.connect(this,getSystemService(BluetoothManager.class).getAdapter().getRemoteDevice(address));
-            state = link.status(); macroState = link.macroStatus(); connected = true;
+            try {
+                link.connect(this,getSystemService(BluetoothManager.class).getAdapter().getRemoteDevice(address));
+                state = link.status(); macroState = link.macroStatus(); connected = true;connectionState="已连接";
+            } catch(Exception error){connectionState="连接失败";throw error;}
             message = (state[4] & 4) != 0 ? "本机触摸已就绪" : "已连接，等待系统启用 HID 触摸";
         });
     }
@@ -92,10 +113,13 @@ public final class MacroService extends Service {
         if (getResources().getConfiguration().orientation != macro.orientation) {
             message = "屏幕方向与录制时不同，请旋转后播放"; changed(); if (finished != null) finished.run(); return;
         }
-        final int request = generation, repeats = macro.repeats, delay = macro.startDelay;
+        if(toolbar!=null&&!toolbar.preparePlayback(macro)){message="工具条与手势区域冲突，请调整";changed();if(finished!=null)finished.run();return;}
+        final int request = generation;
+        final byte[] start=MacroCodec.start(macro);
         previewFinished = finished; previewSeen = false;
         job("正在上传动作宏…",() -> {
             checkReady();
+            if(start.length==13&&MacroCodec.u32(state,8)<0x10101)throw new IllegalStateException("每轮间隔或坐标漂移需要 1.1.1 或更新固件");
             macroState = link.macroStatus();
             if ((macroState[1] & 255) >= 3) throw new IllegalStateException("请先停止当前回放");
             for (byte[] packet : MacroCodec.upload(records)) {
@@ -105,9 +129,9 @@ public final class MacroService extends Service {
             macroState = link.macroStatus();
             if (macroState[1] != 2 || macroState[2] != 0) throw new IllegalStateException("板卡未确认完整宏，请重新上传");
             if (request != generation) throw new CancellationException();
-            link.write(MacroCodec.start(repeats,delay));
+            link.write(start);
             previewSeen = true; macroState = link.macroStatus();
-            message = "板卡正在回放，可切换到目标应用";
+            message = macro.playbackLabel()+" · 板卡正在回放";
         });
     }
     public void stopMacro() {
@@ -129,7 +153,7 @@ public final class MacroService extends Service {
             message = resume ? "板卡正在回放" : "已请求暂停";
         });
     }
-    private void finishPreview() { Runnable action = previewFinished; previewFinished = null; if (action != null) action.run(); }
+    private void finishPreview() { if(toolbar!=null)toolbar.restore();Runnable action = previewFinished; previewFinished = null; if (action != null) action.run(); }
     private final Runnable poll = new Runnable() {
         @Override public void run() {
             if (connected && !busy && !polling) {
@@ -140,7 +164,7 @@ public final class MacroService extends Service {
                         if (macroState[1] == 2 && state[5] == 0 && previewSeen) {
                             previewSeen = false; message = macroState[2] == 0 ? "回放完成" : "回放已中止，错误码 " + macroState[2]; main.post(MacroService.this::finishPreview);
                         }
-                    } catch (Exception e) { connected = false; message = "状态读取失败，请重新连接"; main.post(() -> { if (recorder != null) recorder.close(); finishPreview(); }); }
+                    } catch (Exception e) { connected = false; connectionState="已断开";message = "状态读取失败，请重新连接"; main.post(() -> { if (recorder != null) recorder.close(); finishPreview(); }); }
                     finally { main.post(() -> { polling = false; changed(); }); }
                 });
             }
@@ -151,9 +175,31 @@ public final class MacroService extends Service {
         if (!connected || busy || macroState == null || macroState[1] >= 3) { message = "请先连接板卡并停止回放"; changed(); return; }
         if (recorder != null) recorder.close();
         recorder = new RecorderOverlay(this); recorder.show();
+        message="录制中，松手后执行；完成后在工具条保存";changed();
     }
+    public boolean running(){return macroState!=null&&macroState[1]>=3;}
+    public boolean isRecording(){return recorder!=null;}
+    public void selectMacro(Macro macro,int index){selectedMacro=macro;selectedIndex=index;getSharedPreferences("macros",0).edit().putInt("selected",index).apply();changed();}
+    public void saveSelectedMacro(){
+        try{java.util.List<Macro> macros=MacroStore.load(this);macros.set(selectedIndex,selectedMacro);MacroStore.save(this,macros);changed();}
+        catch(Exception error){message=error.getMessage();changed();}
+    }
+    public void showToolbar(){if(toolbar==null)toolbar=new FloatingToolbar(this);toolbar.show();}
+    public void raiseToolbar(){if(toolbar!=null)toolbar.raise();}
+    public void finishRecording(){if(recorder!=null)recorder.close();changed();}
+    public void recordingClosed(RecorderOverlay source,Macro macro){
+        if(recorder!=source)return;recorder=null;
+        if(!macro.steps.isEmpty()){
+            try{java.util.List<Macro> macros=MacroStore.load(this);macros.add(macro);MacroStore.save(this,macros);selectMacro(macro,macros.size()-1);message="录制已保存，可直接播放或调整参数";}
+            catch(Exception error){message=error.getMessage();}
+        }
+        changed();
+    }
+    public void closeToolbar(){stopMacro();if(toolbar!=null){toolbar.close();toolbar=null;}}
     @Override public void onDestroy() {
+        destroyed=true;
         if (recorder != null) recorder.close();
+        if(toolbar!=null){toolbar.close();toolbar=null;}
         main.removeCallbacksAndMessages(null); link.close(); worker.shutdownNow(); super.onDestroy();
     }
 }

@@ -26,7 +26,7 @@ public class SamePhoneTest {
             screen.onActivity(activity::set);
             link.connect(context,device);
             byte[] status=link.status();assertEquals("Must share the HID connection",1,status[1]);assertTrue((status[4]&4)!=0);
-            Macro macro=Macro.example();macro.repeats=1;macro.startDelay=800;macro.steps.get(1).duration=100;
+            Macro macro=new Macro();macro.repeats=1;macro.startDelay=800;macro.steps.add(Macro.Step.line(.5f,.8f,.5f,.25f,300));
             link.write(new byte[]{0x14});
             while(link.status()[5]!=0)SystemClock.sleep(20);
             for(byte[] packet:MacroCodec.upload(MacroCodec.compile(macro)))link.write(packet);

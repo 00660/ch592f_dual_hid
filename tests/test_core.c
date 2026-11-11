@@ -281,6 +281,82 @@ static void test_macro(void)
     puts("PASS macro ownership, retransmit, CRC, delay, pause/release, repeat, disconnect and stall");
 }
 
+static void test_macro_jitter_and_loop_delay(void)
+{
+    router_t r;
+    uint8_t records[3 * MACRO_STEP_SIZE] = {
+        5,0,CMD_TOUCH,1,0,0,0,100,0,1,0,
+        5,0,CMD_TOUCH,1,0,0xF8,0x7F,200,0,1,0,
+        5,0,CMD_TOUCH,0,0,0xF8,0x7F,200,0,1,0
+    };
+    uint8_t begin[] = {CMD_MACRO_BEGIN,3,0,0,0,0};
+    uint8_t data[14] = {CMD_MACRO_DATA,0,0};
+    uint8_t start[] = {CMD_MACRO_START,4,0,0,0,0x88,0x13,0xE8,3,20,0,0,0};
+    const uint8_t legacy_start[] = {CMD_MACRO_START,1,0,0,0,0,0,0,0};
+    const uint8_t commit = CMD_MACRO_COMMIT;
+    int x_offset = 0, y_offset = 0, previous_x = -10000, previous_y = -10000, varied = 0;
+    unsigned i, reports = 0, guard;
+    int pause_checked = 0;
+    router_init(&r);router_connect(&r,1);
+    store_le32(begin+2,crc32(records,sizeof(records)));
+    assert(router_command(&r,1,7,begin,sizeof(begin)) == RESULT_OK);
+    for (i = 0; i < 3; ++i) {
+        data[1] = i * MACRO_STEP_SIZE;memcpy(data+3,records+i*MACRO_STEP_SIZE,MACRO_STEP_SIZE);
+        assert(router_command(&r,1,7,data,sizeof(data)) == RESULT_OK);
+    }
+    assert(router_command(&r,1,7,&commit,1) == RESULT_OK);
+    store_le32(start + 9,3600001u);
+    assert(router_command(&r,1,7,start,sizeof(start)) == RESULT_VALUE);
+    store_le32(start + 9,20);
+    start[5] = 0xFF;
+    start[6] = 0xFF;
+    assert(router_command(&r,1,7,start,sizeof(start)) == RESULT_VALUE);
+    start[5] = 0x88;
+    start[6] = 0x13;
+    assert(router_command(&r,1,7,start,sizeof(start)) == RESULT_OK);
+    assert(r.macro_loop_delay == 20);
+    for (guard = 0; guard < 200 && r.macro_state == MACRO_RUNNING; ++guard) {
+        const hid_report_t *report;
+        router_macro_tick(&r,7,5);
+        if (!pause_checked && reports == 3 && r.macro_index == 0 && r.macro_delay == 20) {
+            assert(router_command(&r,1,7,(const uint8_t[]){CMD_MACRO_PAUSE},1) == RESULT_OK);
+            router_macro_tick(&r,7,5);
+            assert(r.macro_state == MACRO_PAUSED && r.macro_delay == 20);
+            router_macro_tick(&r,7,100);
+            assert(r.macro_delay == 20);
+            assert(router_command(&r,1,7,(const uint8_t[]){CMD_MACRO_RESUME},1) == RESULT_OK);
+            for (i = 0; i < 3; ++i) {
+                router_macro_tick(&r,7,5);
+                assert(!r.count);
+            }
+            assert(r.macro_delay == 5);
+            router_macro_tick(&r,7,5);
+            assert(r.count == 1);
+            pause_checked = 1;
+        }
+        while ((report=router_peek(&r)) != NULL) {
+            if (report->id == CMD_TOUCH) {
+                int x=report->data[2]+256*report->data[3], y=report->data[4]+256*report->data[5];
+                if (reports % 3 == 0) {
+                    x_offset=x;y_offset=y-100;
+                    assert(x_offset>=0 && x_offset<=7 && y_offset>=-100 && y_offset<=1000);
+                    if (reports && (previous_x!=x_offset || previous_y!=y_offset)) varied=1;
+                    previous_x=x_offset;previous_y=y_offset;
+                } else assert(x==32760+x_offset && y==200+y_offset);
+                assert(x>=0 && x<=32767 && y>=0 && y<=32767);
+                ++reports;
+            }
+            router_sent(&r);
+        }
+    }
+    assert(reports==12 && varied && pause_checked && r.macro_state==MACRO_READY);
+    assert(!memcmp(records,r.macro_data,sizeof(records)));
+    assert(router_command(&r,1,7,legacy_start,sizeof(legacy_start))==RESULT_OK);
+    assert(r.macro_loop_delay==0);
+    assert(r.macro_dx==0 && r.macro_dy==0);
+    puts("PASS loop jitter, 32-bit interval, pause retention, edge bounds and legacy START compatibility");
+}
+
 static void test_removed_ios_touch_mode(void)
 {
     router_t r;
@@ -406,6 +482,7 @@ int main(void)
 {
     test_roles_and_reports();
     test_macro();
+    test_macro_jitter_and_loop_delay();
     test_removed_ios_touch_mode();
     test_ota();
     test_power_loss();

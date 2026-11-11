@@ -94,7 +94,7 @@ void router_disconnect(router_t *r, uint16_t h)
         r->head = r->count = 0;
         r->macro_state = MACRO_EMPTY;
         r->macro_steps = r->macro_received = r->macro_index = 0;
-        r->macro_delay = r->macro_loops = 0;
+        r->macro_delay = r->macro_loop_delay = r->macro_loops = 0;
         r->macro_owner = NO_CONNECTION;
         r->macro_held = 0;
 #if HID_HAS_TOUCH
@@ -162,6 +162,43 @@ static uint8_t held_after(uint8_t held, uint8_t id, const uint8_t *data)
     return down ? held | mask : held & (uint8_t)~mask;
 }
 
+static int16_t random_offset(router_t *r, int16_t low, int16_t high)
+{
+    uint32_t value = r->macro_random ? r->macro_random : 0x592F0301u;
+    value ^= value << 13;
+    value ^= value >> 17;
+    value ^= value << 5;
+    r->macro_random = value;
+    return (int16_t)(low + (int32_t)(value % ((int32_t)high - low + 1)));
+}
+
+static void macro_offsets(router_t *r)
+{
+    r->macro_dx = random_offset(r,r->macro_x_min,r->macro_x_max);
+    r->macro_dy = random_offset(r,r->macro_y_min,r->macro_y_max);
+}
+
+static void macro_bounds(router_t *r, uint16_t radius_x, uint16_t radius_y)
+{
+    unsigned i;
+    r->macro_x_min = -(int16_t)radius_x;
+    r->macro_x_max = (int16_t)radius_x;
+    r->macro_y_min = -(int16_t)radius_y;
+    r->macro_y_max = (int16_t)radius_y;
+    for (i = 0; i < r->macro_steps; ++i) {
+        const uint8_t *step = r->macro_data + i * MACRO_STEP_SIZE;
+        int16_t x, y;
+        if (step[2] != CMD_TOUCH) continue;
+        x = (int16_t)load_le16(step + 5);
+        y = (int16_t)load_le16(step + 7);
+        if (-x > r->macro_x_min) r->macro_x_min = -x;
+        if (32767 - x < r->macro_x_max) r->macro_x_max = 32767 - x;
+        if (-y > r->macro_y_min) r->macro_y_min = -y;
+        if (32767 - y < r->macro_y_max) r->macro_y_max = 32767 - y;
+    }
+    macro_offsets(r);
+}
+
 static uint8_t macro_command(router_t *r, uint16_t h, uint8_t ready,
                              const uint8_t *p, uint16_t n)
 {
@@ -217,14 +254,21 @@ static uint8_t macro_command(router_t *r, uint16_t h, uint8_t ready,
         r->macro_state = MACRO_READY;
         return RESULT_OK;
     case CMD_MACRO_START:
-        if (n != 3 && n != 5) return RESULT_LENGTH;
+        if (n != 3 && n != 5 && n != 9 && n != 13) return RESULT_LENGTH;
+        if (n == 9 && (load_le16(p + 5) > 32767 || load_le16(p + 7) > 32767))
+            return RESULT_VALUE;
+        if (n == 13 && (load_le16(p + 5) > 32767 || load_le16(p + 7) > 32767 ||
+                        load_le32(p + 9) > 3600000u))
+            return RESULT_VALUE;
         if (r->macro_state != MACRO_READY || r->hid == NO_CONNECTION)
             return RESULT_STATE;
         if ((ready & r->macro_required) != r->macro_required) return RESULT_NOT_READY;
         if (r->count) return RESULT_BUSY;
         r->macro_loops = load_le16(p + 1);
         r->macro_index = 0;
-        r->macro_delay = n == 5 ? load_le16(p + 3) : 0;
+        r->macro_delay = n >= 5 ? load_le16(p + 3) : 0;
+        r->macro_loop_delay = n == 13 ? load_le32(p + 9) : 0;
+        macro_bounds(r,n >= 9 ? load_le16(p + 5) : 0,n >= 9 ? load_le16(p + 7) : 0);
         r->macro_result = RESULT_OK;
         r->macro_stall = r->macro_held = 0;
         r->macro_state = MACRO_RUNNING;
@@ -351,6 +395,8 @@ void router_macro_tick(router_t *r, uint8_t ready, uint8_t elapsed_ms)
         if (!r->macro_loops || r->macro_loops > 1) {
             if (r->macro_loops) --r->macro_loops;
             r->macro_index = 0;
+            macro_offsets(r);
+            r->macro_delay = r->macro_loop_delay;
             return;
         }
         r->macro_state = MACRO_READY;
@@ -370,7 +416,15 @@ void router_macro_tick(router_t *r, uint8_t ready, uint8_t elapsed_ms)
             return;
         }
         size = id == CMD_KEYBOARD ? 8 : 7;
-        enqueue(r, id, step + 3, size);
+        hid_report_t *report = enqueue(r, id, step + 3, size);
+        if (id == CMD_TOUCH) {
+            uint16_t x = (uint16_t)(load_le16(step + 5) + r->macro_dx);
+            uint16_t y = (uint16_t)(load_le16(step + 7) + r->macro_dy);
+            report->data[2] = (uint8_t)x;
+            report->data[3] = (uint8_t)(x >> 8);
+            report->data[4] = (uint8_t)y;
+            report->data[5] = (uint8_t)(y >> 8);
+        }
     }
     r->macro_delay = delay;
     ++r->macro_index;

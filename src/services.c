@@ -178,10 +178,17 @@ static bStatus_t read_attribute(uint16_t handle, gattAttribute_t *attr, uint8_t 
         status[5] = app_router.macro_received;
         status[6] = (uint8_t)app_router.macro_loops;
         status[7] = (uint8_t)(app_router.macro_loops >> 8);
-        status[8] = (uint8_t)app_router.macro_delay;
-        status[9] = (uint8_t)(app_router.macro_delay >> 8);
+        {
+            uint16_t remaining = app_router.macro_delay > 65535u ? 65535u : (uint16_t)app_router.macro_delay;
+            status[8] = (uint8_t)remaining;
+            status[9] = (uint8_t)(remaining >> 8);
+        }
         status[10] = MACRO_MAX_STEPS;
         status[12] = MACRO_STEP_SIZE;
+        status[14] = (uint8_t)app_router.macro_dx;
+        status[15] = (uint8_t)((uint16_t)app_router.macro_dx >> 8);
+        status[16] = (uint8_t)app_router.macro_dy;
+        status[17] = (uint8_t)((uint16_t)app_router.macro_dy >> 8);
         return copy_value(out,length,offset,maximum,status,sizeof(status));
     }
     if (attr == &controller_attributes[6]) {

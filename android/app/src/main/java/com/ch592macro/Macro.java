@@ -5,8 +5,9 @@ import java.util.List;
 
 public final class Macro {
     public String name = "我的动作宏";
-    public int repeats = 10;
-    public int startDelay = 5000;
+    public int repeats = 1;
+    public int startDelay = 1000;
+    public int loopDelay, jitterX, jitterY, screenWidth, screenHeight;
     public int orientation = 1;
     public final List<Step> steps = new ArrayList<>();
 
@@ -36,10 +37,7 @@ public final class Macro {
         }
     }
 
-    public static Macro example() {
-        Macro macro = new Macro(); macro.name = "短视频上滑";
-        macro.steps.add(Step.line(.5f, .8f, .5f, .25f, 300));
-        macro.steps.add(Step.waitFor(15000));
-        return macro;
+    public String playbackLabel() {
+        return repeats == 0 ? "持续循环，手动停止" : repeats == 1 ? "执行一次" : "循环 " + repeats + " 次";
     }
 }

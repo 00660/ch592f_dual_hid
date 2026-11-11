@@ -45,13 +45,17 @@ typedef struct {
     uint8_t macro_received;
     uint8_t macro_index;
     uint16_t macro_loops;
-    uint16_t macro_delay;
+    uint32_t macro_delay;
+    uint32_t macro_loop_delay;
     uint32_t macro_crc;
     uint16_t macro_owner;
     uint16_t macro_stall;
     uint8_t macro_result;
     uint8_t macro_required;
     uint8_t macro_held;
+    uint32_t macro_random;
+    int16_t macro_x_min, macro_x_max, macro_y_min, macro_y_max;
+    int16_t macro_dx, macro_dy;
 #if HID_HAS_TOUCH
     uint8_t touch_sent[TOUCH_REPORT_SIZE];
 #endif

@@ -46,6 +46,8 @@ public final class MacroCodec {
                 throw new IllegalArgumentException("动作过多：板卡最多容纳 64 条输入记录，请拆分宏");
         }
         if (!gesture) throw new IllegalArgumentException("宏至少需要一个点按或滑动动作");
+        if (macro.loopDelay < 0 || macro.loopDelay > 3600000) throw new IllegalArgumentException("每轮间隔须在 0 至 1 小时之间");
+        start(macro);
         return out.toByteArray();
     }
 
@@ -86,7 +88,20 @@ public final class MacroCodec {
     public static byte[] start(int repeats, int delay) {
         byte[] p = {0x13,0,0,0,0}; put16(p,1,repeats); put16(p,3,delay); return p;
     }
+    public static byte[] start(Macro macro) {
+        if (macro.jitterX < 0 || macro.jitterY < 0) throw new IllegalArgumentException("坐标漂移范围不能为负数");
+        if(macro.loopDelay<0||macro.loopDelay>3600000)throw new IllegalArgumentException("每轮间隔须在 0 至 1 小时之间");
+        if (macro.jitterX == 0 && macro.jitterY == 0 && macro.loopDelay == 0) return start(macro.repeats,macro.startDelay);
+        if (macro.screenWidth < 2 || macro.screenHeight < 2 || macro.jitterX >= macro.screenWidth || macro.jitterY >= macro.screenHeight)
+            if(macro.jitterX!=0||macro.jitterY!=0)throw new IllegalArgumentException("坐标漂移范围超出屏幕，请重新设置");
+        byte[] packet = java.util.Arrays.copyOf(start(macro.repeats,macro.startDelay),13);
+        if(macro.jitterX!=0)put16(packet,5,Math.round(macro.jitterX * 32767f / (macro.screenWidth-1)));
+        if(macro.jitterY!=0)put16(packet,7,Math.round(macro.jitterY * 32767f / (macro.screenHeight-1)));
+        put32(packet,9,macro.loopDelay);
+        return packet;
+    }
     public static int u16(byte[] b, int at) { return (b[at] & 255) | ((b[at + 1] & 255) << 8); }
     public static long u32(byte[] b, int at) { return u16(b,at) | ((long)u16(b,at + 2) << 16); }
     private static void put16(byte[] b, int at, int value) { b[at] = (byte)value; b[at + 1] = (byte)(value >>> 8); }
+    private static void put32(byte[] b,int at,int value){put16(b,at,value);put16(b,at+2,value>>>16);}
 }
