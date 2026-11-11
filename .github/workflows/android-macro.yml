@@ -9,7 +9,7 @@ jobs:
   android:
     runs-on: ubuntu-24.04
     env:
-      CH592_DEBUG_KEYSTORE: ${{ runner.temp }}/ch592-debug.keystore
+      CH592_DEBUG_KEYSTORE: ${{ github.workspace }}/build/ci/ch592-debug.keystore
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -29,6 +29,7 @@ jobs:
           key: macro-app-debug-signing-v2
       - name: Prepare debug signing key
         run: |
+          mkdir -p "$(dirname "$CH592_DEBUG_KEYSTORE")"
           if [ ! -f "$CH592_DEBUG_KEYSTORE" ]; then
             keytool -genkeypair -keystore "$CH592_DEBUG_KEYSTORE" -storepass android \
               -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
